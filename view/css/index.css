@@ -1,0 +1,23 @@
+#input_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title_input {
+    overflow: visible;
+}
+
+#text_input {
+    width: 90%;
+    height: 50vh;
+    display: block;
+    overflow: hidden;
+    resize: both;
+    line-height: 20px;
+}
+
+#add_note_button {
+    font-size: 15px;
+}
