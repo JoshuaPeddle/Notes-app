@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-require('dotenv').config()
+require('dotenv').config({ path: './.env' })
 
 
 
@@ -9,16 +9,17 @@ var app = express();
 
 /* Import Routers */
 var noteRouter = require('./routes/notes.js');
+var indexRouter = require('./routes/index.js');
 
-app.use(express.static(__dirname + '/view'))
+app.use(express.static(path.join(__dirname , 'view')));
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 /* Use Routers */
 app.use('/', noteRouter);
+app.use('/', indexRouter);
 
 module.exports = app;
