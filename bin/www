@@ -116,3 +116,16 @@ function onListening() {
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
 }
+
+
+process.on('SIGINT', () => {
+  console.log(' SIGINT. Shutting down');
+  mongo.closeDBConnection().then((value)=>{
+    console.log(value)
+    server.close(() => {
+      console.log('Process terminated');
+    });
+  })
+  
+
+});

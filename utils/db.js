@@ -28,7 +28,7 @@ async function getDb() {
 
 async function closeDBConnection(){
     await client.close();
-    return 'Connection closed';
+    return 'DB Connection closed';
 };
 
 
