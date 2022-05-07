@@ -2,11 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var LocalStrategy = require('passport-local')
 var crypto = require('crypto')
-const Binary = require("mongodb").Binary
-var path = require('path');
 var router = express.Router();
-
-
 const mongo = require('../utils/db');
 
 
@@ -19,7 +15,11 @@ async function _get_users_collection() {
     return await db.collection('users');
 };
 
-
+/**
+ * Using passport-local to authenticate users locally
+ * User is fetched from the DB.
+ * Implementation purposely not described here.
+ */
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
     let collection = await _get_users_collection();
     let user = await collection.findOne({ 'username': username })
@@ -41,47 +41,72 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
 
 }));
 
-/* GET home page. */
+/* Submit a username as password to this method as shown below
+ *  <form action="/login/password" method="post">
+        <section>
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+        </section>
+        <section>
+            <label for="current-password" class="form-label">Password</label>
+            <input id="current-password" name="password" type="password" autocomplete="current-password" required>
+        </section>
+        <button type="submit">Add note</button>
+    </form> 
+*/
 router.post('/login/password', passport.authenticate('local', {
     successRedirect: '/notes.html',
     failureRedirect: '/'
 }));
 
-
-
-
+/**
+ * Log a user out. User data is stored in the req object and will be processed by the req.logout function.
+ */
 router.post('/logout', function (req, res, next) {
     req.logout();
     res.redirect('/');
 });
 
-
-
-
+/**
+ * Route to post user data to to request a signup.
+ * Expected data is username and password
+ * <form action="/signup" method="post">
+        <section>
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required>
+        </section>
+        <section>
+            <label for="new-password" class="form-label">Password</label>
+            <input id="new-password" name="password" type="password" autocomplete="new-password" required>
+        </section>
+        <button type="submit">Signup</button>
+    </form>
+ */
 router.post('/signup', function (req, res, next) {
+    // Get the user collection from the database
+    let collection = await _get_users_collection();
+    // Check if username already exists
+    // Try to get a user with that name, if it exists throw it out
+    let doesExist = await collection.findOne({ 'username': req.body.username })
+    if (doesExist != undefined) {
+        return res.send("Username already exists")
+    }
+    // Username is free. Encrypt the password and add the user to the database
     var salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
         if (err) { return next(err); }
-        let collection = await _get_users_collection();
-        // Check if username already exists
-        let doesExist = await collection.findOne({ 'username': req.body.username })
-        if (doesExist != undefined) {
-            return res.send("Username already exists")
-        }
-        console.log(hashedPassword)
-        // If not insert new user
         collection.insertOne({
             'username': req.body.username,
             'hashed_password': hashedPassword.toString("HEX"),
             "salt": salt.toString("HEX")
-
         },
-            function (err, u) {
+            function (err, response_from_db) {
                 if (err) { return next(err); }
                 var user = {
-                    id: u.insertedId.toString(),
+                    id: response_from_db.insertedId.toString(),
                     username: req.body.username
                 };
+                // Try to log the new user in
                 req.login(user, function (err) {
                     if (err) { return next(err); }
                     res.redirect('/');
@@ -90,21 +115,16 @@ router.post('/signup', function (req, res, next) {
     });
 });
 
-
-
 passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
         cb(null, { id: user.id, username: user.username });
     });
 });
 
-
-
 passport.deserializeUser(function (user, cb) {
     process.nextTick(function () {
         return cb(null, user);
     });
 });
-
 
 module.exports = router;
