@@ -1,5 +1,5 @@
 const Note = require('../model/note').Note;
-
+const AuthoredNote = require('../model/note').AuthoredNote;
 const express = require("express");
 var router = express.Router()
 
@@ -9,8 +9,14 @@ var router = express.Router()
 */
 router.post("/", async function (req, res, next) {
     console.log(`Title: ${req.body.title}, Body: ${req.body.body}`)
-    let new_note = new Note(title = req.body.title, body = req.body.body)
+
+    new_note = new AuthoredNote(
+        title = req.body.title,
+        body = req.body.body,
+        author = req.body.author)
+
     let did_insert_bool = await new_note.insertToDB()
+
     res.send({ "was_successful": did_insert_bool })
 });
 
