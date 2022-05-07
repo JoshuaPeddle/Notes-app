@@ -6,24 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script async src="js/sendnote.js"></script>
     <title>Login</title>
 </head>
 
 <body>
 
-    <div id="input_container">
-        <div >
-            <label for="username" >Username</label>
-            <input id="username" type="text" placeholder="Username" required>
-        </div>
-        <div >
-            <label for="password" class="form-label">Password</label>
-            <input id="password" type="password" placeholder="Password" required>
-        </div>
 
+    <div id="login_container">
+        
+        <form action="/login/password" method="post">
+            <section>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+            </section>
+            <section>
+                <label for="current-password" class="form-label">Password</label>
+                <input id="current-password" name="password" type="password" autocomplete="current-password" required>
+            </section>
+
+            <button type="submit">Add note</button>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div id="signup_container">
+        <form action="/signup" method="post">
+            <section>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" required>
+            </section>
+            <section>
+                <label for="new-password" class="form-label">Password</label>
+                <input id="new-password" name="password" type="password" autocomplete="new-password" required>
+            </section>
+
+            <button type="submit">Signup</button>
+        </form>
     </div>
 
 </body>
