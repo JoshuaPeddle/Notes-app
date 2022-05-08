@@ -3,7 +3,7 @@ var passport = require('passport');
 var express = require('express');
 var path = require('path');
 require('dotenv').config({ path: './.env' })
-
+const MongoStore = require('connect-mongo');
 
 
 /* declare global app */
@@ -22,6 +22,8 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
+                                dbName : 'notesapp'})
 }))
 app.use(passport.authenticate('session'))
 
