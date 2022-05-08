@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
-</head>
+</head> 
 
 <body>
-    <div id="login_container">
+    <label id="login_title" style="font-size: large;" >Login</label>
+    <div id="login_container" class="container">
         <form action="/login/password" method="post">
             <section>
                 <label for="username">Username</label>
@@ -20,13 +22,14 @@
                 <label for="current-password" class="form-label">Password</label>
                 <input id="current-password" name="password" type="password" autocomplete="current-password" required>
             </section>
-            <button type="submit">Add note</button>
+            <button type="submit">Log In</button>
         </form>
     </div>
     <br>
     <br>
     <br>
-    <div id="signup_container">
+    <label id="signup_title" style="font-size: large;">Signup</label>
+    <div id="signup_container" class="container">
         <form action="/signup" method="post">
             <section>
                 <label for="username">Username</label>
@@ -40,4 +43,5 @@
         </form>
     </div>
 </body>
+
 </html>
