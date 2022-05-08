@@ -17,7 +17,7 @@ class Note {
      * Represent a simple Note. Has a title and body.
      */
     constructor(title, body) {
-        this.title = title //province/region in canada, or Canada as a whole.
+        this.title = title 
         this.body = body
     }
 
@@ -38,4 +38,16 @@ class Note {
     }
 }
 
+class AuthoredNote extends Note {
+
+    /**
+     * Represent a note with an Author. Has a title, body and author.
+     */
+    constructor(title, body, author) {
+        super(title, body)
+        this.author = author
+    }
+}
+
 module.exports.Note = Note
+module.exports.AuthoredNote = AuthoredNote
