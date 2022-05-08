@@ -1,6 +1,6 @@
 //code unchanged from contacts-app-v4
 const MongoClient = require("mongodb").MongoClient
-const uri =process.env.MONGODB_CONNSTRING; //0.0.0.0 doesn't rely on localhost being configured. Ethan's machine doesn't have it configured.
+const uri =process.env.MONGODB_CONNSTRING; 
 const client = new MongoClient(uri, { useUnifiedTopology: true , authMechanism: "DEFAULT"});
 var db;
 
