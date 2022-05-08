@@ -26,5 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
-    - run: npm run dev
+    - run: docker buildx create --name mybuilder
+    - run: docker buildx use mybuilder
+    - run: docker compose -f docker-compose-local.yml up --force-recreate --build -d
+
