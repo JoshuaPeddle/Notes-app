@@ -83,18 +83,19 @@ router.post('/logout', function (req, res, next) {
     </form>
  */
 router.post('/signup', function (req, res, next) {
-    // Get the user collection from the database
-    let collection = await _get_users_collection();
-    // Check if username already exists
-    // Try to get a user with that name, if it exists throw it out
-    let doesExist = await collection.findOne({ 'username': req.body.username })
-    if (doesExist != undefined) {
-        return res.send("Username already exists")
-    }
+
     // Username is free. Encrypt the password and add the user to the database
     var salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
         if (err) { return next(err); }
+        // Get the user collection from the database
+        let collection = await _get_users_collection();
+        // Check if username already exists
+        // Try to get a user with that name, if it exists throw it out
+        let doesExist = await collection.findOne({ 'username': req.body.username })
+        if (doesExist != undefined) {
+            return res.send("Username already exists")
+        }
         collection.insertOne({
             'username': req.body.username,
             'hashed_password': hashedPassword.toString("HEX"),
