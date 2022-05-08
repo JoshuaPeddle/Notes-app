@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+if (process.argv.slice(2).findIndex((e)=> e =="dev")!= -1){
+
+  process.env.DEV =true;
+  process.env.MONGODB_CONNSTRING = 'mongodb://localhost'
+}
+
+
 /**
  * Module dependencies.
  */
