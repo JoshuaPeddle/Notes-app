@@ -28,7 +28,7 @@ app.use(session({
 app.use(passport.authenticate('session'))
 
 /* Use Routers */
-app.use('/', noteRouter);
+app.use('/', notRouter);
 app.use('/', indexRouter);
 app.use('/', authRouter);
 
