@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-if (process.argv.slice(2).findIndex((e)=> e =="dev")!= -1){
+if (process.argv.slice(2).findIndex((e) => e == "dev") != -1) {
 
-  process.env.DEV =true;
+  process.env.DEV = true;
   process.env.MONGODB_CONNSTRING = 'mongodb://localhost'
 }
 
@@ -31,11 +31,11 @@ var server = http.createServer(app);
 
 
 
-async function createServer(){
+async function createServer() {
   try {
     //make sure database is working before starting
     let did_connect_to_BD = await tryConnectDB()
-   
+
     if (did_connect_to_BD == true) {
       /**
        * Listen on provided port, on all network interfaces.
@@ -47,7 +47,7 @@ async function createServer(){
       throw new Error("Could not connect to DB!")
     }
   }
-  catch(err){
+  catch (err) {
     throw new Error("Could not start server!")
   }
 }
@@ -127,12 +127,12 @@ function onListening() {
 
 process.on('SIGINT', () => {
   console.log(' SIGINT. Shutting down');
-  mongo.closeDBConnection().then((value)=>{
+  mongo.closeDBConnection().then((value) => {
     console.log(value)
     server.close(() => {
       console.log('Process terminated');
     });
   })
-  
+
 
 });

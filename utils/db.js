@@ -1,7 +1,7 @@
 //code unchanged from contacts-app-v4
 const MongoClient = require("mongodb").MongoClient
-const uri =process.env.MONGODB_CONNSTRING; 
-const client = new MongoClient(uri, { useUnifiedTopology: true , authMechanism: "DEFAULT"});
+const uri = process.env.MONGODB_CONNSTRING;
+const client = new MongoClient(uri, { useUnifiedTopology: true, authMechanism: "DEFAULT" });
 var db;
 
 /**
@@ -13,10 +13,10 @@ async function connectToDB() {
         await client.connect();
         // Our db name is datasets
         db = await client.db('notesapp');
-        console.log("Connected successfully to mongoDB");  
+        console.log("Connected successfully to mongoDB");
     } catch (err) {
-        throw err; 
-    } 
+        throw err;
+    }
 }
 /**
  * This method just returns the database instance
@@ -26,10 +26,10 @@ async function getDb() {
     return db;
 }
 
-async function closeDBConnection(){
+async function closeDBConnection() {
     await client.close();
     return 'DB Connection closed';
 };
 
 
-module.exports = {connectToDB, getDb, closeDBConnection}
+module.exports = { connectToDB, getDb, closeDBConnection }

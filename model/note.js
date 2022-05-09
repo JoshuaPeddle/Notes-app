@@ -17,7 +17,7 @@ class Note {
      * Represent a simple Note. Has a title and body.
      */
     constructor(title, body) {
-        this.title = title 
+        this.title = title
         this.body = body
     }
 
