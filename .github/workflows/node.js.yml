@@ -8,6 +8,13 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+env:
+  DB_USER:123
+  DB_PASS:123
+  INTERNAL_DB:27017
+  EXTERNAL_DB:27017
+  INTERNAL_APP:8080
+  EXTERNAL_APP:80
 
 jobs:
   build:
