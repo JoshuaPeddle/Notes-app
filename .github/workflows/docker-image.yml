@@ -26,5 +26,6 @@ jobs:
         docker buildx create --name mybuilder
         docker buildx use mybuilder
         docker compose -f docker-compose-local.yml up --force-recreate --build -d
+        npx wait-on http://localhost:3000 -t 10000
 
 
