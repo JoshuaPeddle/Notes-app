@@ -1,5 +1,13 @@
 name: Docker Image CI
 
+env:
+  DB_USER: 123
+  DB_PASS: 123
+  INTERNAL_DB: 27017
+  EXTERNAL_DB: 27017
+  INTERNAL_APP: 8080
+  EXTERNAL_APP: 80
+
 on:
   push:
     branches: [ master ]
@@ -17,6 +25,6 @@ jobs:
      - run: |
         docker buildx create --name mybuilder
         docker buildx use mybuilder
-        docker compose -f docker-compose-local.yml build 
+        docker compose -f docker-compose-local.yml up --force-recreate --build -d
 
 
