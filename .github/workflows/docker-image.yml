@@ -1,12 +1,6 @@
 name: Docker Image CI
-# Fake env
-env:
-  DB_USER: 123
-  DB_PASS: 123
-  INTERNAL_DB: 27017
-  EXTERNAL_DB: 27017
-  INTERNAL_APP: 8080
-  EXTERNAL_APP: 80
+
+
 
 
 on:
@@ -22,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-    - run: docker buildx create --name mybuilder
-    - run: docker buildx use mybuilder
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+      - run: docker buildx create --name mybuilder
+      - run: docker buildx use mybuilder
+      - run: docker compose -f docker-compose-local.yml build 
