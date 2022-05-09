@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-      - run: docker buildx create --name mybuilder
-      - run: docker buildx use mybuilder
-      - run: docker compose -f docker-compose-local.yml build 
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+    - run: docker buildx create --name mybuilder
+    - run: docker buildx use mybuilder
+    - run: docker compose -f docker-compose-local.yml build 
