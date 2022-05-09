@@ -28,5 +28,6 @@ jobs:
         cache: 'npm'
     - run: docker buildx create --name mybuilder
     - run: docker buildx use mybuilder
-    - run: docker compose -f docker-compose-local.yml up --force-recreate --build -d
+    - run: docker compose -f docker-compose-local.yml build 
+
 
