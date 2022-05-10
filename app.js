@@ -8,6 +8,16 @@ const MongoStore = require('connect-mongo');
 /* declare global app */
 var app = express();
 
+app.use(session({
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: true,
+	rolling : true,
+	store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
+		dbName :  process.env.DBNAME})
+}));
+app.use(passport.authenticate('session'));
+
 /* Import Routers */
 var noteRouter = require('./routes/notes.js');
 var indexRouter = require('./routes/index.js');
@@ -17,14 +27,7 @@ app.use(express.static(path.join(__dirname, 'view')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-	secret: 'keyboard cat',
-	resave: false,
-	saveUninitialized: false,
-	store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
-		dbName :  process.env.DBNAME})
-}));
-app.use(passport.authenticate('session'));
+
 
 /* Use Routers */
 app.use('/', noteRouter);
