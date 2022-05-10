@@ -31,7 +31,6 @@ class Note {
 		try {
 			collection.insertOne(this);
 		} catch (e) {
-			console.log(e);
 			return false;
 		}
 		return true;
@@ -43,11 +42,29 @@ class AuthoredNote extends Note {
 	/**
      * Represent a note with an Author. Has a title, body and author.
      */
-	constructor(title, body, author) {
+	constructor(title, body, author, author_id) {
 		super(title, body);
 		this.author = author;
+		this.author_id = author_id;
 	}
+
 }
 
+/**
+     * This method async inserts a note into the Notes collection.
+     * Awaiting this is optional. 
+     * @returns true on success, false on failure
+     */
+async function getAllNotes(author_id) {
+	let collection = await _get_notes_collection();
+	let notes = null;
+	try {
+		notes = collection.find({'author_id' :author_id }).toArray();
+	} catch (e) {
+		return false;
+	}
+	return notes;
+}
 module.exports.Note = Note;
 module.exports.AuthoredNote = AuthoredNote;
+module.exports.getAllNotes = getAllNotes;
