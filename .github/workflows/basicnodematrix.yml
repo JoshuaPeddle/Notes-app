@@ -39,6 +39,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
+    - run: npm install --produciton
     - run: npm install wait-on
     - run: npm start & npx wait-on http://localhost:3000 -t 10000 # Wait 10000 seconds for connection to open

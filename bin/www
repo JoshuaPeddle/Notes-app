@@ -13,7 +13,7 @@ if (process.argv.slice(2).findIndex((e) => e == 'dev') != -1) {
 /**
  * Module dependencies.
  */
-console.log(process.env);
+
 var app = require('../app');
 
 var http = require('http');
