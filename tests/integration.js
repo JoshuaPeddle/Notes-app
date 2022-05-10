@@ -3,7 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
-
+const serverURL = 'http://localhost:3000';
 
 chai.use(chaiHttp);
 chai.should();
@@ -16,7 +16,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 	describe('Test API calls - individual', function () {
 
 		it('GET / - Should return Login page', function (done) {
-			chai.request('http://localhost:3000')
+			chai.request(serverURL)
 				.get('/')
 				.end((err, res) => {
 					res.should.have.status(200);
@@ -32,7 +32,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 		});
 
 		it('POST /signup - ', function (done) {
-			chai.request('http://localhost:3000')
+			chai.request(serverURL)
 				.post('/signup')
 				.send({ 'username': '12345678', 'password': 'test' })
 				.end((err, res) => {
@@ -44,7 +44,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 		});
 
 		it('DELETE /users - Delete a user', function (done) {
-			chai.request('http://localhost:3000')
+			chai.request(serverURL)
 				.delete('/users')
 				.send({ 'username': '12345678' })
 				.end((err, res) => {
