@@ -1,6 +1,7 @@
 //code unchanged from contacts-app-v4
 const MongoClient = require("mongodb").MongoClient
 const uri = process.env.MONGODB_CONNSTRING;
+
 const client = new MongoClient(uri, { useUnifiedTopology: true, authMechanism: "DEFAULT" });
 var db;
 
@@ -11,9 +12,8 @@ async function connectToDB() {
     try {
         // Connect the client to the server
         await client.connect();
-        // Our db name is datasets
-        db = await client.db('notesapp');
-        console.log("Connected successfully to mongoDB");
+        db = await client.db(process.env.DBNAME);
+        console.log("Connected successfully to mongoDB",process.env.DBNAME);
     } catch (err) {
         throw err;
     }
