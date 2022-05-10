@@ -110,7 +110,6 @@ router.post('/signup', function (req, res, next) {
 				id: response_from_db.insertedId.toString(),
 				username: req.body.username
 			};
-			console.log(user);
 			// Try to log the new user in
 			req.login(user, function (err) {
 				if (err) { return next(err); }
@@ -122,7 +121,6 @@ router.post('/signup', function (req, res, next) {
 
 /* GET home page. */
 router.delete('/users', async function (req, res) {
-	console.log(req.body);
 	let collection = await _get_users_collection();
 	collection.deleteOne(req.body, function (err, obj) {
 		if (err) { console.log(err); }
