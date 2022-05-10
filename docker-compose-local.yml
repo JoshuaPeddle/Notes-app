@@ -15,6 +15,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - MONGODB_CONNSTRING=mongodb://${DB_USER}:${DB_PASS}@ledocker:${INTERNAL_DB}
+      - DBNAME=${DBNAME}
     depends_on:
       - database
     ports:
