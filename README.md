@@ -49,7 +49,7 @@ The webiste should be running at [localhost](http://localhost/)
 
 First push a build using docker build
 
-    docker buildx build  --platform linux/amd64 -t {dockerusername}/{appname}:{versionnumber} --push .
+    docker buildx build  --platform linux/amd64,linux/arm64 -t {dockerusername}/{appname}:{versionnumber} --push .
 
 replace "image:joshuapeddle/notes-app:X.X" in docker-compose.yml with "image: {dockerusername}/{appname}:{versionnumber}" 
 Then do the compose, pulling the remote build.
