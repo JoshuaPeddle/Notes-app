@@ -129,7 +129,7 @@ router.delete('/users', async function (req, res) {
 		if (obj.deletedCount == 1) {
 			res.sendStatus(200);
 		} else {
-			res.send('User does not exit');
+			res.send('User does not exist');
 		}
 	});
 });
