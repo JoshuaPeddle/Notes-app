@@ -1,22 +1,18 @@
 //code unchanged from contacts-app-v4
-const MongoClient = require("mongodb").MongoClient
+const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_CONNSTRING;
 
-const client = new MongoClient(uri, { useUnifiedTopology: true, authMechanism: "DEFAULT" });
+const client = new MongoClient(uri, { useUnifiedTopology: true, authMechanism: 'DEFAULT' });
 var db;
 
 /**
  * A function to stablish a connection with a MongoDB instance.
  */
 async function connectToDB() {
-    try {
-        // Connect the client to the server
-        await client.connect();
-        db = await client.db(process.env.DBNAME);
-        console.log("Connected successfully to mongoDB",process.env.DBNAME);
-    } catch (err) {
-        throw err;
-    }
+    // Connect the client to the server
+    await client.connect();
+    db = await client.db(process.env.DBNAME);
+    console.log('Connected successfully to mongoDB', process.env.DBNAME);
 }
 /**
  * This method just returns the database instance
@@ -29,7 +25,7 @@ async function getDb() {
 async function closeDBConnection() {
     await client.close();
     return 'DB Connection closed';
-};
+}
 
 
-module.exports = { connectToDB, getDb, closeDBConnection }
+module.exports = { connectToDB, getDb, closeDBConnection };

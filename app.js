@@ -23,8 +23,8 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
                                 dbName :  process.env.DBNAME})
-}))
-app.use(passport.authenticate('session'))
+}));
+app.use(passport.authenticate('session'));
 
 /* Use Routers */
 app.use('/', noteRouter);
@@ -35,21 +35,17 @@ async function tryConnectDB() {
     try {
       await mongo.connectToDB();
     } catch (err) {
-      throw new Error("Could not connect to DB!")
+      throw new Error('Could not connect to DB!');
     }
     return true;
   }
   
-tryConnectDB()
+tryConnectDB();
 
 
 module.exports = app;
 process.on('SIGINT', () => {
-  console.log(' SIGINT. Shutting down');
-  mongo.closeDBConnection().then((value) => {
-    console.log(value)
-    server.close(() => {
-      console.log('Process terminated');
-    });
-  })
+  mongo.closeDBConnection().then(() => {
+    console.log('Database connection closed');
+  });
 });
