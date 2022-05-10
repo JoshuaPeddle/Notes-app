@@ -34,7 +34,7 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
             })
         }
         else {
-            console.log("Here")
+            user.id = user._id // Make mongoDB compatible with sessions
             return cb(null, user);
         }
     });
@@ -83,7 +83,6 @@ router.post('/logout', function (req, res, next) {
     </form>
  */
 router.post('/signup', function (req, res, next) {
-
     // Username is free. Encrypt the password and add the user to the database
     var salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
@@ -96,6 +95,7 @@ router.post('/signup', function (req, res, next) {
         if (doesExist != undefined) {
             return res.send("Username already exists")
         }
+        
         collection.insertOne({
             'username': req.body.username,
             'hashed_password': hashedPassword.toString("HEX"),
@@ -107,14 +107,31 @@ router.post('/signup', function (req, res, next) {
                     id: response_from_db.insertedId.toString(),
                     username: req.body.username
                 };
+                console.log(user)
                 // Try to log the new user in
                 req.login(user, function (err) {
                     if (err) { return next(err); }
-                    res.redirect('/');
+                    res.redirect('/notes.html');
                 });
             });
     });
 });
+
+/* GET home page. */
+router.delete('/users', async function (req, res, next) {
+    console.log(req.body)
+    let collection = await _get_users_collection();
+    collection.deleteOne(req.body, function(err, obj) {
+        if (err){ console.log(err)}
+        if (obj.deletedCount == 1){
+            res.sendStatus(200)
+        }else{
+            res.send("User does not exit")
+        }
+    })
+ });
+
+
 
 passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
