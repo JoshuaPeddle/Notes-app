@@ -7,7 +7,7 @@ const mongo = require('../utils/db');
 async function _get_notes_collection() {
     let db = await mongo.getDb();
     return await db.collection('Notes');
-};
+}
 
 
 
@@ -17,8 +17,8 @@ class Note {
      * Represent a simple Note. Has a title and body.
      */
     constructor(title, body) {
-        this.title = title
-        this.body = body
+        this.title = title;
+        this.body = body;
     }
 
     /**
@@ -27,14 +27,14 @@ class Note {
      * @returns true on success, false on failure
      */
     async insertToDB() {
-        let collection = await _get_notes_collection()
+        let collection = await _get_notes_collection();
         try {
-            collection.insertOne(this)
+            collection.insertOne(this);
         } catch (e) {
             console.log(e);
             return false;
         }
-        return true
+        return true;
     }
 }
 
@@ -44,10 +44,10 @@ class AuthoredNote extends Note {
      * Represent a note with an Author. Has a title, body and author.
      */
     constructor(title, body, author) {
-        super(title, body)
-        this.author = author
+        super(title, body);
+        this.author = author;
     }
 }
 
-module.exports.Note = Note
-module.exports.AuthoredNote = AuthoredNote
+module.exports.Note = Note;
+module.exports.AuthoredNote = AuthoredNote;

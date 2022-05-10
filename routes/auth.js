@@ -1,7 +1,7 @@
 var express = require('express');
 var passport = require('passport');
-var LocalStrategy = require('passport-local')
-var crypto = require('crypto')
+var LocalStrategy = require('passport-local');
+var crypto = require('crypto');
 var router = express.Router();
 const mongo = require('../utils/db');
 
@@ -13,7 +13,7 @@ const mongo = require('../utils/db');
 async function _get_users_collection() {
     let db = await mongo.getDb();
     return await db.collection('users');
-};
+}
 
 /**
  * Using passport-local to authenticate users locally
@@ -22,19 +22,22 @@ async function _get_users_collection() {
  */
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
     let collection = await _get_users_collection();
-    let user = await collection.findOne({ 'username': username })
+    let user = await collection.findOne({ 'username': username });
     if (user == null) {
         return cb(null);
     }
-    crypto.pbkdf2(password, Buffer.from(user.salt, "hex"), iterations = 310000, keylen = 32, digest = 'sha256', function (err, hashedPassword) {
+    let iterations = 310000;
+    let keylen = 32;
+    let digest = 'sha256';
+    crypto.pbkdf2(password, Buffer.from(user.salt, 'hex'), iterations, keylen, digest, function (err, hashedPassword) {
         if (err) { return cb(err); }
-        if (!crypto.timingSafeEqual(Buffer.from(user.hashed_password, "hex"), hashedPassword)) {
+        if (!crypto.timingSafeEqual(Buffer.from(user.hashed_password, 'hex'), hashedPassword)) {
             return cb(null, false, {
                 message: 'Incorrect username or password.'
-            })
+            });
         }
         else {
-            user.id = user._id // Make mongoDB compatible with sessions
+            user.id = user._id; // Make mongoDB compatible with sessions
             return cb(null, user);
         }
     });
@@ -62,7 +65,7 @@ router.post('/login/password', passport.authenticate('local', {
 /**
  * Log a user out. User data is stored in the req object and will be processed by the req.logout function.
  */
-router.post('/logout', function (req, res, next) {
+router.post('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
@@ -91,15 +94,15 @@ router.post('/signup', function (req, res, next) {
         let collection = await _get_users_collection();
         // Check if username already exists
         // Try to get a user with that name, if it exists throw it out
-        let doesExist = await collection.findOne({ 'username': req.body.username })
+        let doesExist = await collection.findOne({ 'username': req.body.username });
         if (doesExist != undefined) {
-            return res.send("Username already exists")
+            return res.send('Username already exists');
         }
-        
+
         collection.insertOne({
             'username': req.body.username,
-            'hashed_password': hashedPassword.toString("HEX"),
-            "salt": salt.toString("HEX")
+            'hashed_password': hashedPassword.toString('HEX'),
+            'salt': salt.toString('HEX')
         },
             function (err, response_from_db) {
                 if (err) { return next(err); }
@@ -107,7 +110,7 @@ router.post('/signup', function (req, res, next) {
                     id: response_from_db.insertedId.toString(),
                     username: req.body.username
                 };
-                console.log(user)
+                console.log(user);
                 // Try to log the new user in
                 req.login(user, function (err) {
                     if (err) { return next(err); }
@@ -118,18 +121,18 @@ router.post('/signup', function (req, res, next) {
 });
 
 /* GET home page. */
-router.delete('/users', async function (req, res, next) {
-    console.log(req.body)
+router.delete('/users', async function (req, res) {
+    console.log(req.body);
     let collection = await _get_users_collection();
-    collection.deleteOne(req.body, function(err, obj) {
-        if (err){ console.log(err)}
-        if (obj.deletedCount == 1){
-            res.sendStatus(200)
-        }else{
-            res.send("User does not exit")
+    collection.deleteOne(req.body, function (err, obj) {
+        if (err) { console.log(err); }
+        if (obj.deletedCount == 1) {
+            res.sendStatus(200);
+        } else {
+            res.send('User does not exit');
         }
-    })
- });
+    });
+});
 
 
 

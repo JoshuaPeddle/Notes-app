@@ -1,19 +1,19 @@
 #!/usr/bin/env node
-require('dotenv').config({ path: './.env' })
+require('dotenv').config({ path: './.env' });
 /** This checks for 'dev' in argv. ex: "npm run dev"
  *  If it finds it, configure dev environment
  */
-if (process.argv.slice(2).findIndex((e) => e == "dev") != -1) {
+if (process.argv.slice(2).findIndex((e) => e == 'dev') != -1) {
   process.env.DEV = true;
-  process.env.MONGODB_CONNSTRING = 'mongodb://localhost'
-  process.env.DBNAME = 'notesapp-dev'
+  process.env.MONGODB_CONNSTRING = 'mongodb://localhost';
+  process.env.DBNAME = 'notesapp-dev';
 }
 
 
 /**
  * Module dependencies.
  */
-console.log(process.env)
+console.log(process.env);
 var app = require('../app');
 
 var http = require('http');
@@ -40,12 +40,12 @@ async function createServer() {
     server.on('listening', onListening);
   }
   catch (err) {
-    throw new Error("Could not start server!")
+    throw new Error('Could not start server!');
   }
 }
 
 
-createServer()
+createServer();
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -107,3 +107,8 @@ function onListening() {
 }
 
 
+process.on('SIGINT', () => {
+  server.close(() => {
+    console.log('Process terminated');
+  });
+});
