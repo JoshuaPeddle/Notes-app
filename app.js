@@ -2,9 +2,8 @@ var session = require('express-session');
 var passport = require('passport');
 var express = require('express');
 var path = require('path');
-require('dotenv').config({ path: './.env' })
+const mongo = require('./utils/db.js');
 const MongoStore = require('connect-mongo');
-
 
 /* declare global app */
 var app = express();
@@ -23,7 +22,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
-                                dbName : 'notesapp'})
+                                dbName :  process.env.DBNAME})
 }))
 app.use(passport.authenticate('session'))
 
@@ -32,4 +31,25 @@ app.use('/', noteRouter);
 app.use('/', indexRouter);
 app.use('/', authRouter);
 
+async function tryConnectDB() {
+    try {
+      await mongo.connectToDB();
+    } catch (err) {
+      throw new Error("Could not connect to DB!")
+    }
+    return true;
+  }
+  
+tryConnectDB()
+
+
 module.exports = app;
+process.on('SIGINT', () => {
+  console.log(' SIGINT. Shutting down');
+  mongo.closeDBConnection().then((value) => {
+    console.log(value)
+    server.close(() => {
+      console.log('Process terminated');
+    });
+  })
+});

@@ -3,6 +3,11 @@
 
 name: Node.js CI
 
+env:
+  MONGODB_CONNSTRING: mongodb://localhost
+  DBNAME: notesapp
+
+
 on:
   push:
     branches: [ master ]
@@ -36,4 +41,4 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm install wait-on
-    - run: npm run dev & npx wait-on http://localhost:3000 -t 10000 # Wait 10000 seconds for connection to open
+    - run: npm start & npx wait-on http://localhost:3000 -t 10000 # Wait 10000 seconds for connection to open
