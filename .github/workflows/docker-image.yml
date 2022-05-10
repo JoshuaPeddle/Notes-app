@@ -7,6 +7,7 @@ env:
   EXTERNAL_DB: 27017
   INTERNAL_APP: 8080
   EXTERNAL_APP: 80
+  DBNAME: "test"
 
 on:
   push:
