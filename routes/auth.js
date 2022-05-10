@@ -11,8 +11,8 @@ const mongo = require('../utils/db');
  * @returns The Notes collection from MongoDB
  */
 async function _get_users_collection() {
-    let db = await mongo.getDb();
-    return await db.collection('users');
+	let db = await mongo.getDb();
+	return await db.collection('users');
 }
 
 /**
@@ -21,26 +21,26 @@ async function _get_users_collection() {
  * Implementation purposely not described here.
  */
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
-    let collection = await _get_users_collection();
-    let user = await collection.findOne({ 'username': username });
-    if (user == null) {
-        return cb(null);
-    }
-    let iterations = 310000;
-    let keylen = 32;
-    let digest = 'sha256';
-    crypto.pbkdf2(password, Buffer.from(user.salt, 'hex'), iterations, keylen, digest, function (err, hashedPassword) {
-        if (err) { return cb(err); }
-        if (!crypto.timingSafeEqual(Buffer.from(user.hashed_password, 'hex'), hashedPassword)) {
-            return cb(null, false, {
-                message: 'Incorrect username or password.'
-            });
-        }
-        else {
-            user.id = user._id; // Make mongoDB compatible with sessions
-            return cb(null, user);
-        }
-    });
+	let collection = await _get_users_collection();
+	let user = await collection.findOne({ 'username': username });
+	if (user == null) {
+		return cb(null);
+	}
+	let iterations = 310000;
+	let keylen = 32;
+	let digest = 'sha256';
+	crypto.pbkdf2(password, Buffer.from(user.salt, 'hex'), iterations, keylen, digest, function (err, hashedPassword) {
+		if (err) { return cb(err); }
+		if (!crypto.timingSafeEqual(Buffer.from(user.hashed_password, 'hex'), hashedPassword)) {
+			return cb(null, false, {
+				message: 'Incorrect username or password.'
+			});
+		}
+		else {
+			user.id = user._id; // Make mongoDB compatible with sessions
+			return cb(null, user);
+		}
+	});
 
 }));
 
@@ -58,16 +58,16 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
     </form> 
 */
 router.post('/login/password', passport.authenticate('local', {
-    successRedirect: '/notes.html',
-    failureRedirect: '/'
+	successRedirect: '/notes.html',
+	failureRedirect: '/'
 }));
 
 /**
  * Log a user out. User data is stored in the req object and will be processed by the req.logout function.
  */
 router.post('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
+	req.logout();
+	res.redirect('/');
 });
 
 /**
@@ -86,66 +86,66 @@ router.post('/logout', function (req, res) {
     </form>
  */
 router.post('/signup', function (req, res, next) {
-    // Username is free. Encrypt the password and add the user to the database
-    var salt = crypto.randomBytes(16);
-    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
-        if (err) { return next(err); }
-        // Get the user collection from the database
-        let collection = await _get_users_collection();
-        // Check if username already exists
-        // Try to get a user with that name, if it exists throw it out
-        let doesExist = await collection.findOne({ 'username': req.body.username });
-        if (doesExist != undefined) {
-            return res.send('Username already exists');
-        }
+	// Username is free. Encrypt the password and add the user to the database
+	var salt = crypto.randomBytes(16);
+	crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
+		if (err) { return next(err); }
+		// Get the user collection from the database
+		let collection = await _get_users_collection();
+		// Check if username already exists
+		// Try to get a user with that name, if it exists throw it out
+		let doesExist = await collection.findOne({ 'username': req.body.username });
+		if (doesExist != undefined) {
+			return res.send('Username already exists');
+		}
 
-        collection.insertOne({
-            'username': req.body.username,
-            'hashed_password': hashedPassword.toString('HEX'),
-            'salt': salt.toString('HEX')
-        },
-            function (err, response_from_db) {
-                if (err) { return next(err); }
-                var user = {
-                    id: response_from_db.insertedId.toString(),
-                    username: req.body.username
-                };
-                console.log(user);
-                // Try to log the new user in
-                req.login(user, function (err) {
-                    if (err) { return next(err); }
-                    res.redirect('/notes.html');
-                });
-            });
-    });
+		collection.insertOne({
+			'username': req.body.username,
+			'hashed_password': hashedPassword.toString('HEX'),
+			'salt': salt.toString('HEX')
+		},
+		function (err, response_from_db) {
+			if (err) { return next(err); }
+			var user = {
+				id: response_from_db.insertedId.toString(),
+				username: req.body.username
+			};
+			console.log(user);
+			// Try to log the new user in
+			req.login(user, function (err) {
+				if (err) { return next(err); }
+				res.redirect('/notes.html');
+			});
+		});
+	});
 });
 
 /* GET home page. */
 router.delete('/users', async function (req, res) {
-    console.log(req.body);
-    let collection = await _get_users_collection();
-    collection.deleteOne(req.body, function (err, obj) {
-        if (err) { console.log(err); }
-        if (obj.deletedCount == 1) {
-            res.sendStatus(200);
-        } else {
-            res.send('User does not exit');
-        }
-    });
+	console.log(req.body);
+	let collection = await _get_users_collection();
+	collection.deleteOne(req.body, function (err, obj) {
+		if (err) { console.log(err); }
+		if (obj.deletedCount == 1) {
+			res.sendStatus(200);
+		} else {
+			res.send('User does not exit');
+		}
+	});
 });
 
 
 
 passport.serializeUser(function (user, cb) {
-    process.nextTick(function () {
-        cb(null, { id: user.id, username: user.username });
-    });
+	process.nextTick(function () {
+		cb(null, { id: user.id, username: user.username });
+	});
 });
 
 passport.deserializeUser(function (user, cb) {
-    process.nextTick(function () {
-        return cb(null, user);
-    });
+	process.nextTick(function () {
+		return cb(null, user);
+	});
 });
 
 module.exports = router;

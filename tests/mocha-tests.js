@@ -18,34 +18,34 @@ describe('Notes app - Tests with Mocha', function () {
 
 
 
-    /** Tests for Api calls */
-    describe('Test API calls', function () {
+	/** Tests for Api calls */
+	describe('Test API calls', function () {
 
-        it('GET /', function (done) {
-            chai.request(app)
-                .get('/')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.type.should.equal('text/html');
-                    done();
-                });
-        });
-    });
+		it('GET /', function (done) {
+			chai.request(app)
+				.get('/')
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.type.should.equal('text/html');
+					done();
+				});
+		});
+	});
 
 
-    /** Integration tests for Api calls */
-    describe('Test API calls', function () {
+	/** Integration tests for Api calls */
+	describe('Test API calls', function () {
 
-        it('GET /', function (done) {
-            chai.request(app)
-                .get('/')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.type.should.equal('text/html');
-                    done();
-                });
-        });
-    });
+		it('GET /', function (done) {
+			chai.request(app)
+				.get('/')
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.type.should.equal('text/html');
+					done();
+				});
+		});
+	});
 
 
 

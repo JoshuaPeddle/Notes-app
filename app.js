@@ -18,11 +18,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
-                                dbName :  process.env.DBNAME})
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: false,
+	store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
+		dbName :  process.env.DBNAME})
 }));
 app.use(passport.authenticate('session'));
 
@@ -32,20 +32,20 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 
 async function tryConnectDB() {
-    try {
-      await mongo.connectToDB();
-    } catch (err) {
-      throw new Error('Could not connect to DB!');
-    }
-    return true;
-  }
+	try {
+		await mongo.connectToDB();
+	} catch (err) {
+		throw new Error('Could not connect to DB!');
+	}
+	return true;
+}
   
 tryConnectDB();
 
 
 module.exports = app;
 process.on('SIGINT', () => {
-  mongo.closeDBConnection().then(() => {
-    console.log('Database connection closed');
-  });
+	mongo.closeDBConnection().then(() => {
+		console.log('Database connection closed');
+	});
 });

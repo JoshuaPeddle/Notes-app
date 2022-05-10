@@ -8,16 +8,16 @@ var router = express.Router();
 * This function waits for the note to be inserted so it can respond with a status
 */
 router.post('/', async function (req, res) {
-    console.log(`Title: ${req.body.title}, Body: ${req.body.body}`);
+	console.log(`Title: ${req.body.title}, Body: ${req.body.body}`);
 
-    let new_note = new AuthoredNote(
-        req.body.title,
-        req.body.body,
-        req.body.author);
+	let new_note = new AuthoredNote(
+		req.body.title,
+		req.body.body,
+		req.body.author);
 
-    let did_insert_bool = await new_note.insertToDB();
+	let did_insert_bool = await new_note.insertToDB();
 
-    res.send({ 'was_successful': did_insert_bool });
+	res.send({ 'was_successful': did_insert_bool });
 });
 
 

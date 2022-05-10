@@ -9,22 +9,22 @@ var db;
  * A function to stablish a connection with a MongoDB instance.
  */
 async function connectToDB() {
-    // Connect the client to the server
-    await client.connect();
-    db = await client.db(process.env.DBNAME);
-    console.log('Connected successfully to mongoDB', process.env.DBNAME);
+	// Connect the client to the server
+	await client.connect();
+	db = await client.db(process.env.DBNAME);
+	console.log('Connected successfully to mongoDB', process.env.DBNAME);
 }
 /**
  * This method just returns the database instance
  * @returns A Database instance
  */
 async function getDb() {
-    return db;
+	return db;
 }
 
 async function closeDBConnection() {
-    await client.close();
-    return 'DB Connection closed';
+	await client.close();
+	return 'DB Connection closed';
 }
 
 
