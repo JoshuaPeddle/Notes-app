@@ -3,6 +3,11 @@
 
 name: Node.js CI
 
+env:
+  MONGODB_CONNSTRING: mongodb://localhost
+  DBNAME: notesapp
+
+
 on:
   push:
     branches: [ master ]
