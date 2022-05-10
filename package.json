@@ -1,12 +1,11 @@
 {
-  "name": "docker",
-  "version": "0.0.0",
+  "name": "notes-app",
+  "version": "0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "dev": "node ./bin/www dev",
-    "build": "docker buildx build  --platform linux/amd64,linux/arm64 -t joshuapeddle/notes-app:0.1 .",
-    "push": "docker buildx build  --platform linux/amd64,linux/arm64 -t joshuapeddle/notes-app:0.1 --push ."
+    "test": "mocha --exit tests\\mocha-tests.js && mocha tests\\integration.js --exit"
   },
   "dependencies": {
     "connect-mongo": "^4.6.0",
@@ -16,5 +15,10 @@
     "mongodb": "^4.5.0",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0"
   }
 }
