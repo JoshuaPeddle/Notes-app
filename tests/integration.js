@@ -3,7 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
-const serverURL = 'http://localhost:3000'
+const serverURL = 'http://localhost:3000';
 
 chai.use(chaiHttp);
 chai.should();
