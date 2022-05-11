@@ -8,6 +8,7 @@ env:
   INTERNAL_APP: 8080
   EXTERNAL_APP: 80
   DBNAME: "test"
+  SESSION_SECRET: keyboard-cat
 
 on:
   push:

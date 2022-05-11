@@ -6,6 +6,7 @@ name: Node.js-start-wait-matrix
 env:
   MONGODB_CONNSTRING: mongodb://localhost
   DBNAME: notesapp
+  SESSION_SECRET: keyboard-cat
 
 
 on:

@@ -28,9 +28,9 @@ app.use(helmet({
 	expectCt: false,
 	xssFilter: false,
 }));
-
+console.log(process.env.SESSION_SECRET);
 app.use(session({
-	secret: 'keyboard cat',
+	secret: process.env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: true,
 	rolling: true,
