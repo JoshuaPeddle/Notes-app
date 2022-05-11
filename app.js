@@ -1,32 +1,37 @@
 var express = require('express');
 var session = require('express-session');
 var passport = require('passport');
-const helmet = require("helmet");
+const helmet = require('helmet');
 var path = require('path');
 const mongo = require('./utils/db.js');
-const  {homepageLimiter , signupLimiter , limiter} = require('./utils/ratelimit.js');
+const { homepageLimiter, signupLimiter, limiter } = require('./utils/ratelimit.js');
 const MongoStore = require('connect-mongo');
 
- 
 
 /* declare global app */
 var app = express();
-app.use(helmet());
+
+app.use(helmet({
+	originAgentCluster: false,
+	crossOriginOpenerPolicy: false
+}));
+
 app.use(session({
 	secret: 'keyboard cat',
 	resave: false,
 	saveUninitialized: true,
-	rolling : true,
-	store: MongoStore.create({ mongoUrl: process.env.MONGODB_CONNSTRING,
-		dbName :  process.env.DBNAME})
+	rolling: true,
+	store: MongoStore.create({
+		mongoUrl: process.env.MONGODB_CONNSTRING,
+		dbName: process.env.DBNAME
+	})
 }));
 app.use(passport.authenticate('session'));
 
-
 // Apply the rate limiting middleware
-app.get('/', homepageLimiter)
-app.post('/signup', signupLimiter)
-app.use('/signup', limiter)
+app.get('/', homepageLimiter);
+app.post('/signup', signupLimiter);
+app.use('/signup', limiter);
 
 /* Import Routers */
 var noteRouter = require('./routes/notes.js');
@@ -54,7 +59,7 @@ async function tryConnectDB() {
 	}
 	return true;
 }
-  
+
 tryConnectDB();
 
 
