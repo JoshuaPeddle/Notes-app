@@ -19,24 +19,13 @@
         <h1>Notes</h1>
 
         <label for="title_input"> Title</label>
-        <input id="title_input" type="text" value="">
+        <input id="title_input" type="text" value="" placeholder="Title">
         <br>
         <label for="text_input"> Note</label>
-        <textarea id="text_input" cols="10" rows="10"></textarea>
+        <textarea id="text_input" cols="10" rows="10" placeholder="Body"></textarea>
 
         <button id="add_note_button">Add note</button>
 
-        <!--- Temp script to insert placeholder text -->
-        <script async type="text/javascript">
-            var lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut \
-             enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi \
-              ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
-               voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur \
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit \
-                 anim id est laborum."
-            $("#text_input").val(lorem);
-        </script>
         <br><br><br>
         <form action="/logout" method="post">
 

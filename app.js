@@ -13,7 +13,20 @@ var app = express();
 
 app.use(helmet({
 	originAgentCluster: false,
-	crossOriginOpenerPolicy: false
+	crossOriginOpenerPolicy: false,
+	crossOriginResourcePolicy: false,
+	crossOriginEmbedderPolicy: false,
+	contentSecurityPolicy: {
+		useDefaults: false,
+		directives: {                // eslint-disable-next-line quotes
+			'default-src': "'self'", // eslint-disable-next-line quotes
+			'script-src': ["https://code.jquery.com/", "'self'"],  // eslint-disable-next-line quotes
+			'style-src':  "'self'",
+		},
+	},
+	hsts: false,
+	expectCt: false,
+	xssFilter: false,
 }));
 
 app.use(session({
@@ -28,6 +41,12 @@ app.use(session({
 }));
 app.use(passport.authenticate('session'));
 
+
+app.use(express.static(path.join(__dirname, 'view')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 // Apply the rate limiting middleware
 app.get('/', homepageLimiter);
 app.post('/signup', signupLimiter);
@@ -38,17 +57,11 @@ var noteRouter = require('./routes/notes.js');
 var indexRouter = require('./routes/index.js');
 var authRouter = require('./routes/auth.js');
 
-app.use(express.static(path.join(__dirname, 'view')));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
 
 /* Use Routers */
 app.use('/', noteRouter);
 app.use('/', indexRouter);
 app.use('/', authRouter);
-
 
 
 async function tryConnectDB() {
