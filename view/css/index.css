@@ -1,3 +1,8 @@
+*{
+    padding: 3px;
+    margin: 5px;
+}
+
 #input_container {
     width: 100%;
     display: flex;
