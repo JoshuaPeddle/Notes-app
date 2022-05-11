@@ -28,7 +28,7 @@ app.use(helmet({
 	expectCt: false,
 	xssFilter: false,
 }));
-console.log(process.env.SESSION_SECRET);
+
 app.use(session({
 	secret: process.env.SESSION_SECRET,
 	resave: false,
