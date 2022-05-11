@@ -46,16 +46,16 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
 
 /* Submit a username as password to this method as shown below
  *  <form action="/login/password" method="post">
-        <section>
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" autocomplete="username" required autofocus>
-        </section>
-        <section>
-            <label for="current-password" class="form-label">Password</label>
-            <input id="current-password" name="password" type="password" autocomplete="current-password" required>
-        </section>
-        <button type="submit">Add note</button>
-    </form> 
+		<section>
+			<label for="username">Username</label>
+			<input id="username" name="username" type="text" autocomplete="username" required autofocus>
+		</section>
+		<section>
+			<label for="current-password" class="form-label">Password</label>
+			<input id="current-password" name="password" type="password" autocomplete="current-password" required>
+		</section>
+		<button type="submit">Add note</button>
+	</form> 
 */
 router.post('/login/password', passport.authenticate('local', {
 	successRedirect: '/notes.html',
@@ -74,16 +74,16 @@ router.post('/logout', function (req, res) {
  * Route to post user data to to request a signup.
  * Expected data is username and password
  * <form action="/signup" method="post">
-        <section>
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" autocomplete="username" required>
-        </section>
-        <section>
-            <label for="new-password" class="form-label">Password</label>
-            <input id="new-password" name="password" type="password" autocomplete="new-password" required>
-        </section>
-        <button type="submit">Signup</button>
-    </form>
+		<section>
+			<label for="username">Username</label>
+			<input id="username" name="username" type="text" autocomplete="username" required>
+		</section>
+		<section>
+			<label for="new-password" class="form-label">Password</label>
+			<input id="new-password" name="password" type="password" autocomplete="new-password" required>
+		</section>
+		<button type="submit">Signup</button>
+	</form>
  */
 router.post('/signup', function (req, res, next) {
 	// Username is free. Encrypt the password and add the user to the database
@@ -110,7 +110,7 @@ router.post('/signup', function (req, res, next) {
 				id: response_from_db.insertedId.toString(),
 				username: req.body.username
 			};
-			// Try to log the new user in
+				// Try to log the new user in
 			req.login(user, function (err) {
 				if (err) { return next(err); }
 				res.redirect('/notes.html');
