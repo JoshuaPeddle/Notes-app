@@ -26,8 +26,8 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
 	if (user == null) {
 		return cb(null);
 	}
-	let iterations = process.env.ITERATIONS;
-	let keylen = process.env.KEYLEN;
+	let iterations = parseInt(process.env.ITERATIONS);
+	let keylen = parseInt(process.env.KEYLEN);
 	let digest = process.env.DIGEST;
 	crypto.pbkdf2(password, Buffer.from(user.salt, 'hex'), iterations, keylen, digest, function (err, hashedPassword) {
 		if (err) { return cb(err); }
@@ -88,7 +88,10 @@ router.post('/logout', function (req, res) {
 router.post('/signup', function (req, res, next) {
 	// Username is free. Encrypt the password and add the user to the database
 	var salt = crypto.randomBytes(16);
-	crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
+	let iterations = parseInt(process.env.ITERATIONS);
+	let keylen = parseInt(process.env.KEYLEN);
+	let digest = process.env.DIGEST;
+	crypto.pbkdf2(req.body.password, salt, iterations, keylen, digest, async function (err, hashedPassword) {
 		if (err) { return next(err); }
 		// Get the user collection from the database
 		let collection = await _get_users_collection();
