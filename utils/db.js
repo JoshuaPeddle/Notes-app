@@ -2,7 +2,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_CONNSTRING;
 
-const client = new MongoClient(uri, { useUnifiedTopology: true, authMechanism: 'DEFAULT' });
+const client = new MongoClient(uri, { useUnifiedTopology: true});
 var db;
 
 /**
