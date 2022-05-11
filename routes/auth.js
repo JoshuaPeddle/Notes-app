@@ -26,9 +26,9 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
 	if (user == null) {
 		return cb(null);
 	}
-	let iterations = 310000;
-	let keylen = 32;
-	let digest = 'sha256';
+	let iterations = process.env.ITERATIONS;
+	let keylen = process.env.KEYLEN;
+	let digest = process.env.DIGEST;
 	crypto.pbkdf2(password, Buffer.from(user.salt, 'hex'), iterations, keylen, digest, function (err, hashedPassword) {
 		if (err) { return cb(err); }
 		if (!crypto.timingSafeEqual(Buffer.from(user.hashed_password, 'hex'), hashedPassword)) {
