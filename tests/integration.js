@@ -3,7 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
-const serverURL = 'http://localhost:3000';
+const serverURL = 'http://localhost:3000'
 
 chai.use(chaiHttp);
 chai.should();
@@ -14,9 +14,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 
 	/** Integration tests for Api calls */
 	describe('Test API calls - individual', function () {
-		beforeEach( async () => {
-			await new Promise(resolve => setTimeout(resolve, 200));
-		});
+
 
 		it('GET / - Should return Login page', function (done) {
 			chai.request(serverURL)

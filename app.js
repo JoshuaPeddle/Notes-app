@@ -1,13 +1,16 @@
+var express = require('express');
 var session = require('express-session');
 var passport = require('passport');
-var express = require('express');
+const helmet = require("helmet");
 var path = require('path');
 const mongo = require('./utils/db.js');
 const MongoStore = require('connect-mongo');
 
+
+
 /* declare global app */
 var app = express();
-
+app.use(helmet());
 app.use(session({
 	secret: 'keyboard cat',
 	resave: false,
