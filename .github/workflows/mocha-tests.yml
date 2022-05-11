@@ -6,6 +6,7 @@ name: no-docker-Mocha-tests
 env:
   MONGODB_CONNSTRING: mongodb://localhost
   DBNAME: notesapp
+  SESSION_SECRET: keyboard-cat
 
 
 on:

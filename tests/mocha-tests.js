@@ -9,6 +9,7 @@ chai.should();
 
 process.env.MONGODB_CONNSTRING = 'mongodb://localhost';
 process.env.DBNAME = 'notesapp-dev';
+process.env.SESSION_SECRET = 'keyboard-cat';
 
 const app = require('../app.js');
 
