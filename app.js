@@ -24,10 +24,9 @@ app.use(helmet({
 			'style-src':  "'self'",
 		},
 	},
-	hsts: false,  // Using HTTP for now
-	expectCt: false,  //HTTPS only
-	frameguard: false, // Allow masked DNS
-	xssFilter: false
+	hsts: false,
+	expectCt: false,
+	xssFilter: false,
 }));
 
 app.use(session({
