@@ -15,7 +15,7 @@ app.use(helmet({
 	originAgentCluster: false,
 	crossOriginOpenerPolicy: false,
 	crossOriginResourcePolicy: false,
-	crossOriginEmbedderPolicy: true,
+	crossOriginEmbedderPolicy: false,
 	contentSecurityPolicy: {
 		useDefaults: false,
 		directives: {                // eslint-disable-next-line quotes
