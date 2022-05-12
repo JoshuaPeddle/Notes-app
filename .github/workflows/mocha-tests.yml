@@ -10,7 +10,7 @@ env:
   ITERATIONS: 310000
   KEYLEN: 32
   DIGEST: sha256
-  SERVER_URL: 'http://localhost:80'
+  SERVER_URL: 'http://localhost:3000'
 
 
 on:
