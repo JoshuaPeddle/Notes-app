@@ -303,9 +303,10 @@ describe('Notes app - Integration Tests with Mocha', function () {
 													agent.post('/login/password')
 														.send(userDetails)
 														.end((err, res) => {
+															
 															res.should.have.status(200);
 															res.text.should.have.string('<!DOCTYPE html>');
-															res.text.should.have.string('<h1>Notes</h1>');
+															res.text.should.have.string('<title>Notes</title>');
 															agent.get('/notes')
 																.end((err, res) => {
 																	res.should.have.status(200);
