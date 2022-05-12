@@ -1,7 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var passport = require('passport');
-//const helmet = require('helmet');
+const helmet = require('helmet');
 var path = require('path');
 const mongo = require('./utils/db.js');
 const { homepageLimiter, signupLimiter, limiter } = require('./utils/ratelimit.js');
@@ -11,7 +11,7 @@ const MongoStore = require('connect-mongo');
 /* declare global app */
 var app = express();
 
-/*
+
 app.use(helmet({
 	originAgentCluster: false,
 	crossOriginOpenerPolicy: false,
@@ -27,9 +27,8 @@ app.use(helmet({
 	},
 	hsts: false,
 	expectCt: false,
-	frameguard: false, // Allow masked DNS
 }));
-*/
+
 
 app.use(session({
 	name: 'notesapp'+parseInt((Math.random() * 10000), 10), // Just need to have diffrent names on instances running onn the same machine 1/10000 are good odds
