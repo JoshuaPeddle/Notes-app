@@ -277,7 +277,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 			// Using chai's agent here to maintain login cookie throughout request
 			var agent = chai.request.agent(serverURL);
 			agent.delete('/users')
-				.send({'username':  userDetails['username']})
+				.send({'username':  userDetails.username})
 				.then(function (res) {
 					res.should.have.status(200);
 					res.text.should.be.oneOf(['User does not exist', 'OK']);
