@@ -1,4 +1,4 @@
-name: docker-compose-local UP
+name: docker-compose-local-mocha UP
 
 env:
   DB_USER: 123
@@ -13,6 +13,7 @@ env:
   ITERATIONS: 310000
   KEYLEN: 32
   DIGEST: sha256
+  SERVER_URL: 'http://localhost:80'
 
 on:
   push:
@@ -29,10 +30,13 @@ jobs:
     steps:
      - uses: actions/checkout@v1
      - run: |
-        npm install wait-on
+        npm install wait-on mocha dotenv
         docker buildx create --name mybuilder
         docker buildx use mybuilder
         docker compose -f docker-compose-local.yml up --force-recreate --build -d
         npx wait-on http://localhost:80 -t 10000
+        npx mocha tests/integration.js 
+
+        
 
 

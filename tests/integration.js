@@ -1,9 +1,8 @@
 
-
+require('dotenv').config({ path: './.env' });
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-
-const serverURL = 'http://localhost:3000';
+const serverURL = process.env.SERVER_URL;
 
 chai.use(chaiHttp);
 chai.should();
