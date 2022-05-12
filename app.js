@@ -15,7 +15,7 @@ app.use(helmet({
 	originAgentCluster: false,
 	crossOriginOpenerPolicy: false,
 	crossOriginResourcePolicy: false,
-	crossOriginEmbedderPolicy: false,
+	crossOriginEmbedderPolicy: true,
 	contentSecurityPolicy: {
 		useDefaults: false,
 		directives: {                // eslint-disable-next-line quotes
@@ -24,9 +24,9 @@ app.use(helmet({
 			'style-src':  "'self'",
 		},
 	},
-	hsts: false,
-	expectCt: false,
-	xssFilter: false,
+	hsts: false,  // Using HTTP for now
+	expectCt: false,  //HTTPS only
+	frameguard: false // Allow masked DNS
 }));
 
 app.use(session({
