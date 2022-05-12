@@ -42,7 +42,7 @@ app.use(session({
 app.use(passport.authenticate('session'));
 
 
-app.use(express.static(path.join(__dirname, 'view')));
+app.use(express.static(path.join(__dirname, '/view/static')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

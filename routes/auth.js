@@ -58,7 +58,7 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
 	</form> 
 */
 router.post('/login/password', passport.authenticate('local', {
-	successRedirect: '/notes.html',
+	successRedirect: '/',
 	failureRedirect: '/'
 }));
 
@@ -116,7 +116,7 @@ router.post('/signup', function (req, res, next) {
 				// Try to log the new user in
 			req.login(user, function (err) {
 				if (err) { return next(err); }
-				res.redirect('/notes.html');
+				res.redirect('/');
 			});
 		});
 	});
