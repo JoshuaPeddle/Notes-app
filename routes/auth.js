@@ -58,7 +58,7 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
 	</form> 
 */
 router.post('/login/password', passport.authenticate('local', {
-	successRedirect: '/notes.html',
+	successRedirect: '/',
 	failureRedirect: '/'
 }));
 
