@@ -11,7 +11,7 @@ var router = express.Router();
 */
 router.post('/', async function (req, res) {
 
-	if (req.user == undefined){
+	if (req.user === undefined){
 		return res.send({ 'was_successful': false });
 	}
 
@@ -34,7 +34,7 @@ router.post('/', async function (req, res) {
 */
 router.get('/notes', async function (req, res) {
 	//console.log(req);
-	if (req.user == undefined){
+	if (req.user === undefined){
 		return res.send({ 'was_successful': false });
 	}
 	let notes = await getAllNotes(req.user.id);

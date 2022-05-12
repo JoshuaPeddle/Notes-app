@@ -30,6 +30,7 @@ app.use(helmet({
 }));
 
 app.use(session({
+	name: 'notesapp'+parseInt((Math.random() * 10000), 10), // Just need to have diffrent names on instances running onn the same machine 1/10000 are good odds
 	secret: process.env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: true,

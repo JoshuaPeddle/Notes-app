@@ -3,7 +3,7 @@ require('dotenv').config({ path: './.env' });
 /** This checks for 'dev' in argv. ex: "npm run dev"
  *  If it finds it, configure dev environment
  */
-if (process.argv.slice(2).findIndex((e) => e == 'dev') != -1) {
+if (process.argv.slice(2).findIndex((e) => {return e === 'dev';}) !== -1) {
 	process.env.DEV = true;
 	process.env.MONGODB_CONNSTRING = 'mongodb://localhost';
 	process.env.DBNAME = 'notesapp-dev';
@@ -38,7 +38,6 @@ async function createServer() {
 		//make sure database is working before starting
 		server.listen(port);
 		server.on('error', onError);
-		server.on('listening', onListening);
 	}
 	catch (err) {
 		throw new Error('Could not start server!');
@@ -95,17 +94,7 @@ function onError(error) {
 	}
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
 
-function onListening() {
-	var addr = server.address();
-	var bind = typeof addr === 'string'
-		? 'pipe ' + addr
-		: 'port ' + addr.port;
-	console.log('Listening on ' + bind);
-}
 
 
 process.on('SIGINT', () => {

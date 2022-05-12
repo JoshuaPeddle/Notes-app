@@ -7,7 +7,11 @@
         "mocha": true,
         "jquery": true
     },
-    "extends": "eslint:recommended",
+    "plugins": [
+        "security-node"
+    ],
+    "extends": ["eslint:recommended",
+    "plugin:security-node/recommended"],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
@@ -27,6 +31,22 @@
         "semi": [
             "error",
             "always"
+        ],
+        "no-const-assign": [
+            "error"
+        ],
+        "arrow-body-style": [
+            "error",
+            "always"
+        ],
+        "dot-notation": [
+            "error"
+        ],
+        "eqeqeq": [
+            "error"
+        ],
+        "no-else-return": [
+            "error"
         ]
 
     }

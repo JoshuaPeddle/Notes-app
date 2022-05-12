@@ -12,7 +12,7 @@ async function connectToDB() {
 	// Connect the client to the server
 	await client.connect();
 	db = await client.db(process.env.DBNAME);
-	console.log('Connected successfully to mongoDB', process.env.DBNAME);
+	console.log('Connected successfully to mongoDB');
 }
 /**
  * This method just returns the database instance

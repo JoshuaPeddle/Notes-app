@@ -22,6 +22,7 @@
     "axios": "^0.27.2",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
+    "eslint-plugin-security-node": "^1.1.1",
     "mocha": "^10.0.0"
   }
 }

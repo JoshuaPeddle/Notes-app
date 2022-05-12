@@ -27,11 +27,11 @@ $(function () {
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(note),
-			success: function (response) {
+			success: function () {
 				// We can print in the front-end console to verify
 				// what is coming back from the server side
-				console.log(JSON.stringify(response));
-				alert(JSON.stringify(response));
+				note.title = $('#title_input').val('');
+				note.body = $('#text_input').val('');
 				//$("#add-out").text(response);
 			},
 			//We can use the alert box to show if there's an error in the server-side
