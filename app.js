@@ -26,7 +26,7 @@ app.use(helmet({
 	},
 	hsts: false,
 	expectCt: false,
-	xssFilter: false,
+	frameguard: false, // Allow masked DNS
 }));
 
 app.use(session({
