@@ -4,7 +4,7 @@ var passport = require('passport');
 const helmet = require('helmet');
 var path = require('path');
 const mongo = require('./utils/db.js');
-const { homepageLimiter, signupLimiter, limiter } = require('./utils/ratelimit.js');
+const { homepageLimiter, signupLimiter, limiter, loginLimiter } = require('./utils/ratelimit.js');
 const MongoStore = require('connect-mongo');
 
 
@@ -53,6 +53,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', homepageLimiter);
 app.post('/signup', signupLimiter);
 app.use('/signup', limiter);
+app.get('/login/password', loginLimiter);
+
 
 /* Import Routers */
 var noteRouter = require('./routes/notes.js');
