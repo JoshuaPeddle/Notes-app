@@ -116,7 +116,7 @@ router.post('/signup', function (req, res, next) {
 				// Try to log the new user in
 			req.login(user, function (err) {
 				if (err) { return next(err); }
-				res.redirect('/notes.html');
+				res.redirect('/');
 			});
 		});
 	});
