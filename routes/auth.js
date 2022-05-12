@@ -23,7 +23,8 @@ async function _get_users_collection() {
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
 	let collection = await _get_users_collection();
 	let user = await collection.findOne({ 'username': username });
-	if (user == null) {
+	
+	if (user === null) {
 		return cb(null);
 	}
 	let iterations = parseInt(process.env.ITERATIONS);
@@ -36,10 +37,9 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
 				message: 'Incorrect username or password.'
 			});
 		}
-		else {
-			user.id = user._id; // Make mongoDB compatible with sessions
-			return cb(null, user);
-		}
+		user.id = user._id; // Make mongoDB compatible with sessions
+		return cb(null, user);
+		
 	});
 
 }));
@@ -98,10 +98,9 @@ router.post('/signup', function (req, res, next) {
 		// Check if username already exists
 		// Try to get a user with that name, if it exists throw it out
 		let doesExist = await collection.findOne({ 'username': req.body.username });
-		if (doesExist != undefined) {
+		if (doesExist) {
 			return res.send('Username already exists');
 		}
-
 		collection.insertOne({
 			'username': req.body.username,
 			'hashed_password': hashedPassword.toString('HEX'),
@@ -127,8 +126,8 @@ router.delete('/users', async function (req, res) {
 	//console.log(req);
 	let collection = await _get_users_collection();
 	collection.deleteOne(req.body, function (err, obj) {
-		if (err) { console.log(err); }
-		if (obj.deletedCount == 1) {
+		if (err) { res.send('error'); }
+		if (obj.deletedCount === 1) {
 			res.sendStatus(200);
 		} else {
 			res.send('User does not exist');
