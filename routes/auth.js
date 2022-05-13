@@ -123,7 +123,6 @@ router.post('/signup', function (req, res, next) {
 
 /* GET home page. */
 router.delete('/users', async function (req, res) {
-	//console.log(req);
 	let collection = await _get_users_collection();
 	collection.deleteOne(req.body, function (err, obj) {
 		if (err) { res.send('error'); }
@@ -134,7 +133,6 @@ router.delete('/users', async function (req, res) {
 		}
 	});
 });
-
 
 
 passport.serializeUser(function (user, cb) {

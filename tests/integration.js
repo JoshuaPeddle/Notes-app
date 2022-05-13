@@ -224,7 +224,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 									agent.get('/notes')
 										.end((err, res) => {
 											res.should.have.status(200);
-											res.body[0].should.deep.equal(note);
+											res.body[0].should.own.include(note);
 											done();
 										});	
 								});	
@@ -255,7 +255,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 									agent.get('/notes')
 										.end((err, res) => {
 											res.should.have.status(200);
-											res.body[0].should.deep.equal(note);
+											res.body[0].should.own.include(note);
 											agent.post('/logout')
 												.end((err, res) => {
 													res.should.have.status(200);
@@ -294,7 +294,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 									agent.get('/notes')
 										.end((err, res) => {
 											res.should.have.status(200);
-											res.body[0].should.deep.equal(note);
+											res.body[0].should.own.include(note);
 											agent.post('/logout')
 												.end((err, res) => {
 													res.should.have.status(200);
@@ -309,7 +309,7 @@ describe('Notes app - Integration Tests with Mocha', function () {
 															agent.get('/notes')
 																.end((err, res) => {
 																	res.should.have.status(200);
-																	res.body[0].should.deep.equal(note);
+																	res.body[0].should.own.include(note);
 																	done();
 																});	
 														});	

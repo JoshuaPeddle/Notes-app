@@ -23,28 +23,55 @@ $(function () {
 		showLoader('slow');
 		event.preventDefault();
 		let note = assembleNote();
+		note.noteid = $('#add_note_button').val();
 
-		$.ajax({
-			url: '/',
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify(note),
-			success: function () {
-				hideLoader('fast',1000, ()=>{
-					showSuccessCheck(1000);
-				});
-				// We can print in the front-end console to verify
-				// what is coming back from the server side
-				note.title = $('#title_input').val('');
-				note.body = $('#text_input').val('');
+		if (isEditing){
+			$.ajax({
+				url: '/notes',
+				type: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(note),
+				success: function () {
+					hideLoader('fast',1000, ()=>{
+						showSuccessCheck(1000);
+					});
+					doneEditing();
+					// We can print in the front-end console to verify
+					// what is coming back from the server side
+					note.title = $('#title_input').val('');
+					note.body = $('#text_input').val('');
+
+					//$("#add-out").text(response);
+				},
+				//We can use the alert box to show if there's an error in the server-side
+				error: function (xhr) {
+					var errorMessage = xhr.status + ': ' + xhr.statusText;
+					alert('Error - ' + errorMessage);
+				}
+			});
+		}else{
+			$.ajax({
+				url: '/',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(note),
+				success: function () {
+					hideLoader('fast',1000, ()=>{
+						showSuccessCheck(1000);
+					});
+					// We can print in the front-end console to verify
+					// what is coming back from the server side
+					note.title = $('#title_input').val('');
+					note.body = $('#text_input').val('');
 				//$("#add-out").text(response);
-			},
-			//We can use the alert box to show if there's an error in the server-side
-			error: function (xhr) {
-				var errorMessage = xhr.status + ': ' + xhr.statusText;
-				alert('Error - ' + errorMessage);
-			}
-		});
+				},
+				//We can use the alert box to show if there's an error in the server-side
+				error: function (xhr) {
+					var errorMessage = xhr.status + ': ' + xhr.statusText;
+					alert('Error - ' + errorMessage);
+				}
+			});}
+		$('#get_all_notes').click();
 	});
 });
 

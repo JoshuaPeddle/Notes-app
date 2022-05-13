@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const mongo = require('../utils/db');
 
 /**
@@ -35,6 +36,7 @@ class Note {
 		}
 		return true;
 	}
+
 }
 
 class AuthoredNote extends Note {
@@ -49,7 +51,23 @@ class AuthoredNote extends Note {
 	}
 
 }
+/**
+     * This method async inserts a note into the Notes collection.
+     * Awaiting this is optional. 
+     * @returns true on success, false on failure
+     */
+async function updateNote(noteid, notetitle, notebody) {
+	let collection = await _get_notes_collection();
 
+	try {
+			
+		collection.updateOne({'_id':ObjectId(noteid)}, {$set:{title:notetitle, body:notebody}});
+			
+	} catch (e) {
+		return false;
+	}
+	return true;
+}
 /**
      * This method async inserts a note into the Notes collection.
      * Awaiting this is optional. 
@@ -65,6 +83,27 @@ async function getAllNotes(author_id) {
 	}
 	return notes;
 }
+
+
+/**
+     * This method async inserts a note into the Notes collection.
+     * Awaiting this is optional. 
+     * @returns true on success, false on failure
+     */
+async function deleteNote(noteid) {
+	let collection = await _get_notes_collection();
+	let notes = null;
+	try {
+		notes = collection.deleteOne({'_id':ObjectId(noteid)});
+	} catch (e) {
+		return false;
+	}
+	return notes;
+}
+
+
 module.exports.Note = Note;
 module.exports.AuthoredNote = AuthoredNote;
 module.exports.getAllNotes = getAllNotes;
+module.exports.updateNote = updateNote;
+module.exports.deleteNote = deleteNote;

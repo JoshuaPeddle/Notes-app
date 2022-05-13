@@ -1,6 +1,8 @@
 //const Note = require('../model/note').Note;
 const AuthoredNote = require('../model/note').AuthoredNote;
 const getAllNotes = require('../model/note').getAllNotes;
+const updateNote = require('../model/note').updateNote;
+const deleteNote = require('../model/note').deleteNote;
 const express = require('express');
 var router = express.Router();
 
@@ -28,13 +30,43 @@ router.post('/', async function (req, res) {
 });
 
 
+
+/**
+* This route updates a Note object from the request data and calls its uodateOne() function. 
+*/
+router.put('/notes/', async function (req, res) {
+
+	if (req.user === undefined){
+		return res.send({ 'was_successful': false });
+	}
+
+	let did_update = await updateNote(req.body.noteid,req.body.title, req.body.body,);
+
+	res.send({ 'was_successful': did_update });
+});
+
+
+/**
+* This route updates a Note object from the request data and calls its uodateOne() function. 
+*/
+router.delete('/notes/', async function (req, res) {
+	if (req.user === undefined){
+		return res.send({ 'was_successful': false });
+	}
+
+	let did_delete = await deleteNote(req.body.noteid);
+	res.send({ 'was_successful': did_delete });
+});
+
+
+
 /**
 * This route constructs a Note object from the request data and calls its insertNote() function. 
 * This function waits for the note to be inserted so it can respond with a status
 */
 router.get('/notes', async function (req, res) {
 	res.set('Cache-control', 'no-cache');
-	//console.log(req);
+
 	if (req.user === undefined){
 		return res.send({ 'was_successful': false });
 	}
@@ -45,7 +77,8 @@ router.get('/notes', async function (req, res) {
 	let cleaned_notes = [];
 	notes.forEach(element => {
 		let new_note = {title : element.title,
-			body : element.body};
+			body : element.body,
+			id:element._id};
 		cleaned_notes.push(new_note);
 	});
 	res.send(cleaned_notes);
