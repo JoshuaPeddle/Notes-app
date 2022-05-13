@@ -16,13 +16,12 @@
 <body>
 
     <div id="input_container">
+        
         <div id="title_container">
             <h1 id="title_string">Notes</h1>
             <form action="/logout" method="post">
-
                 <button type="submit">Logout</button>
             </form>
-            
         </div>
 
         <label for="title_input"> Title</label>
@@ -33,8 +32,12 @@
 
         <button id="add_note_button" type="submit">Add note</button>
 
+        <div id="messages">
+            <label id="check"></label>
+            <div id="spinner"></div>
+        </div>
 
-        <button id="get_all_notes" type="submit">Get all Notes</button>
+        <button id="get_all_notes" type="submit" class="slide-right">Get all Notes</button>
 
         <div id="all_notes"></div>
 
