@@ -19,6 +19,10 @@
 
 }
 
+#get_all_notes{
+    display: none;
+}
+
 #title_container #title_string {
     justify-self: center;
     align-self: flex-end;
