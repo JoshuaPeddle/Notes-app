@@ -1,6 +1,8 @@
 //const Note = require('../model/note').Note;
 const AuthoredNote = require('../model/note').AuthoredNote;
 const getAllNotes = require('../model/note').getAllNotes;
+const updateNote = require('../model/note').updateNote;
+const deleteNote = require('../model/note').deleteNote;
 const express = require('express');
 var router = express.Router();
 
@@ -26,6 +28,36 @@ router.post('/', async function (req, res) {
 
 	res.send({ 'was_successful': did_insert_bool });
 });
+
+
+
+/**
+* This route updates a Note object from the request data and calls its uodateOne() function. 
+*/
+router.put('/notes/', async function (req, res) {
+
+	if (req.user === undefined){
+		return res.send({ 'was_successful': false });
+	}
+
+	let did_update = await updateNote(req.body.noteid,req.body.title, req.body.body,);
+
+	res.send({ 'was_successful': did_update });
+});
+
+
+/**
+* This route updates a Note object from the request data and calls its uodateOne() function. 
+*/
+router.delete('/notes/', async function (req, res) {
+	if (req.user === undefined){
+		return res.send({ 'was_successful': false });
+	}
+
+	let did_delete = await deleteNote(req.body.noteid);
+	res.send({ 'was_successful': did_delete });
+});
+
 
 
 /**
