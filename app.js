@@ -43,6 +43,14 @@ app.use(session({
 }));
 app.use(passport.authenticate('session'));
 
+app.get('/css/*', (req, res, next)=>{
+	res.set('Cache-control', 'public, Cache-Control: max-age: 31536000, immutable');
+	next();
+});
+app.get('/js/*', (req, res, next)=>{
+	res.set('Cache-control', 'public, Cache-Control: max-age: 31536000, immutable');
+	next();
+});
 
 app.use(express.static(path.join(__dirname, '/view/static')));
 app.use(express.json());
