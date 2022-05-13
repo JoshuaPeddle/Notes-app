@@ -1,4 +1,4 @@
-*{
+* {
     padding: 3px;
     margin: 5px;
 }
@@ -11,21 +11,22 @@
     align-items: center;
 }
 
-#title_container{
+#title_container {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
 }
-#title_container #title_string{
+
+#title_container #title_string {
     justify-self: center;
     align-self: flex-end;
 
 
 }
 
-#title_container form button{
+#title_container form button {
 
     justify-self: flex-end;
 
@@ -56,10 +57,10 @@
 
 }
 
-#note_container{
+#note_container {
     height: 100%;
     padding: 10px;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -69,14 +70,54 @@
 
 }
 
-#note_title{
+#note_title {
     border-radius: 5px;
     font-size: 10px;
     border-style: inset;
 }
 
-#note_body{
+#note_body {
     border-radius: 5px;
     font-size: 10px;
     border-style: inset;
+}
+
+
+/**
+ * ----------------------------------------
+ * animation spin
+ * ----------------------------------------
+ */
+
+
+#spinner{
+    pointer-events: none;
+    opacity: 0;
+    animation: 1.5s linear infinite spinner;
+    animation-play-state: running;
+    border: solid 5px #cfd0d1;
+    border-bottom-color: #1c87c9;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    height: 40px;
+    transform: translate3d(-50%, -50%, 0);
+    width: 40px;
+    will-change: transform;
+}
+.spin {
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+}
+
+@keyframes spinner {
+    0% {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
 }

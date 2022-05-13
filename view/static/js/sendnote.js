@@ -2,7 +2,6 @@
 
 $(function () {
 
-
 	/**
      * This function will get all the values in the inputs
      * and will create a valid object to be send to the server-side
@@ -13,12 +12,14 @@ $(function () {
 		note.body = $('#text_input').val();
 		return note;
 	}
+
 	/**
      * This function binds an event to the add button.
      * The idea is that we assemble a valid object from the form
      * and send it to the server-side.
      */
 	$('#add_note_button').click(function (event) {
+		showLoader('slow');
 		event.preventDefault();
 		let note = assembleNote();
 
@@ -28,6 +29,7 @@ $(function () {
 			contentType: 'application/json',
 			data: JSON.stringify(note),
 			success: function () {
+				hideLoader('slow',1000);
 				// We can print in the front-end console to verify
 				// what is coming back from the server side
 				note.title = $('#title_input').val('');
@@ -42,3 +44,19 @@ $(function () {
 		});
 	});
 });
+
+/**
+ * Wait 'wait' ms, then fadeOut in 'fadeTime
+*/
+function showLoader(fadeTime){
+	$('#spinner').fadeTo(fadeTime,1,);
+	
+}
+
+/**
+ * Wait 'wait' ms, then fadeOut in 'fadeTime
+*/
+async function hideLoader(fadeTime,wait){
+	await new Promise(e => {return setTimeout(e, wait);});	
+	$('#spinner').fadeOut(fadeTime,0);
+}
