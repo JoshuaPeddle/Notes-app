@@ -29,7 +29,9 @@ $(function () {
 			contentType: 'application/json',
 			data: JSON.stringify(note),
 			success: function () {
-				hideLoader('slow',1000);
+				hideLoader('fast',1000, ()=>{
+					showSuccessCheck(1000);
+				});
 				// We can print in the front-end console to verify
 				// what is coming back from the server side
 				note.title = $('#title_input').val('');
@@ -45,18 +47,30 @@ $(function () {
 	});
 });
 
+
+/**
+ * Show sucess icon for 'showFor' ms
+*/
+async function showSuccessCheck(showFor){
+	$('#check').html('&#10003;');
+	$('#check').fadeTo('fast',1);
+	await new Promise(e => {return setTimeout(e, showFor);});	
+	$('#check').fadeOut('fast',0);
+}
+
 /**
  * Wait 'wait' ms, then fadeOut in 'fadeTime
 */
 function showLoader(fadeTime){
-	$('#spinner').fadeTo(fadeTime,1,);
+	$('#spinner').fadeTo(fadeTime,1);
 	
 }
 
 /**
  * Wait 'wait' ms, then fadeOut in 'fadeTime
 */
-async function hideLoader(fadeTime,wait){
+async function hideLoader(fadeTime,wait, cb){
 	await new Promise(e => {return setTimeout(e, wait);});	
 	$('#spinner').fadeOut(fadeTime,0);
+	cb();
 }

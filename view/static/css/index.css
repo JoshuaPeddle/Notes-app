@@ -91,6 +91,7 @@
 
 
 #spinner{
+    position: absolute;
     pointer-events: none;
     opacity: 0;
     animation: 1.5s linear infinite spinner;
@@ -99,18 +100,12 @@
     border-bottom-color: #1c87c9;
     border-radius: 50%;
     content: "";
-    position: absolute;
     height: 40px;
     transform: translate3d(-50%, -50%, 0);
     width: 40px;
     will-change: transform;
 }
-.spin {
-    pointer-events: none;
-    position: absolute;
-    left: 50%;
-    top: 40%;
-}
+
 
 @keyframes spinner {
     0% {
@@ -121,3 +116,28 @@
         transform: translate3d(-50%, -50%, 0) rotate(360deg);
     }
 }
+
+
+/**
+ * ----------------------------------------
+ * Checkmark
+ * ----------------------------------------
+ */
+
+ #check{
+    position: absolute;
+    pointer-events: none;
+    content: '\2713';
+    color: green;
+    opacity: 0;
+    font-size: xx-large;
+    padding: 0%;
+    left: -0.5em;
+    top: -0.5em;
+ }
+
+ #messages{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+ }
