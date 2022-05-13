@@ -68,13 +68,13 @@
     border-radius: 5px;
 }
 
-#note_title {
+.note_title {
     border-radius: 5px;
     font-size: 10px;
     border-style: inset;
 }
 
-#note_body {
+.note_body {
     border-radius: 5px;
     font-size: 10px;
     border-style: inset;

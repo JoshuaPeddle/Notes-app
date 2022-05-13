@@ -23,7 +23,30 @@ $(function () {
 		showLoader('slow');
 		event.preventDefault();
 		let note = assembleNote();
-
+		note.id = $('#add_note_button').val();
+		if (isEditing){
+			$.ajax({
+				url: '/',
+				type: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(note),
+				success: function () {
+					hideLoader('fast',1000, ()=>{
+						showSuccessCheck(1000);
+					});
+					// We can print in the front-end console to verify
+					// what is coming back from the server side
+					note.title = $('#title_input').val('');
+					note.body = $('#text_input').val('');
+					//$("#add-out").text(response);
+				},
+				//We can use the alert box to show if there's an error in the server-side
+				error: function (xhr) {
+					var errorMessage = xhr.status + ': ' + xhr.statusText;
+					alert('Error - ' + errorMessage);
+				}
+			});
+		}
 		$.ajax({
 			url: '/',
 			type: 'POST',
