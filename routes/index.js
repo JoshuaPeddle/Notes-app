@@ -4,6 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
+	res.set('Cache-control', 'public, max-age=604800');
 	if(req.user){  // If user has an active session skip login page
 		res.sendFile(path.join(__dirname, '..', 'view', 'notes.html'));
 	}else{   // No active session, go to login page

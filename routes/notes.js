@@ -10,7 +10,7 @@ var router = express.Router();
 * This function waits for the note to be inserted so it can respond with a status
 */
 router.post('/', async function (req, res) {
-
+	res.set('Cache-control', 'no-cache');
 	if (req.user === undefined){
 		return res.send({ 'was_successful': false });
 	}
@@ -33,6 +33,7 @@ router.post('/', async function (req, res) {
 * This function waits for the note to be inserted so it can respond with a status
 */
 router.get('/notes', async function (req, res) {
+	res.set('Cache-control', 'no-cache');
 	//console.log(req);
 	if (req.user === undefined){
 		return res.send({ 'was_successful': false });
