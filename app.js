@@ -7,10 +7,14 @@ const mongo = require('./utils/db.js');
 const { homepageLimiter, signupLimiter, limiter, loginLimiter } = require('./utils/ratelimit.js');
 const MongoStore = require('connect-mongo');
 
+/* Import Routers */
+var noteRouter = require('./routes/notes.js');
+var indexRouter = require('./routes/index.js');
+var authRouter = require('./routes/auth.js');
+var cache = require('./utils/cache.js');
 
 /* declare global app */
 var app = express();
-
 
 app.use(helmet({
 	originAgentCluster: false,
@@ -29,7 +33,7 @@ app.use(helmet({
 	expectCt: false,
 }));
 
-
+/* declare global app */
 app.use(session({
 	name: 'notesapp'+parseInt((Math.random() * 10000), 10), // Just need to have diffrent names on instances running onn the same machine 1/10000 are good odds
 	secret: process.env.SESSION_SECRET,
@@ -41,16 +45,11 @@ app.use(session({
 		dbName: process.env.DBNAME
 	})
 }));
+
+
 app.use(passport.authenticate('session'));
 
-app.get('/css/*', (req, res, next)=>{
-	res.set('Cache-control', 'public, max-age=31536000, immutable');
-	next();
-});
-app.get('/js/*', (req, res, next)=>{
-	res.set('Cache-control', 'public, max-age=31536000, immutable');
-	next();
-});
+app.use(cache);
 
 app.use(express.static(path.join(__dirname, '/view/static')));
 app.use(express.json());
@@ -64,18 +63,12 @@ app.use('/signup', limiter);
 app.get('/login/password', loginLimiter);
 
 
-/* Import Routers */
-var noteRouter = require('./routes/notes.js');
-var indexRouter = require('./routes/index.js');
-var authRouter = require('./routes/auth.js');
-
-
 /* Use Routers */
 app.use('/', noteRouter);
 app.use('/', indexRouter);
 app.use('/', authRouter);
 
-
+/* Connect to the DB */
 async function tryConnectDB() {
 	try {
 		await mongo.connectToDB();
@@ -84,13 +77,12 @@ async function tryConnectDB() {
 	}
 	return true;
 }
-
 tryConnectDB();
 
-
-module.exports = app;
 process.on('SIGINT', () => {
 	mongo.closeDBConnection().then(() => {
 		console.log('Database connection closed');
 	});
 });
+
+module.exports = app;
