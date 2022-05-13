@@ -3,9 +3,10 @@
 
 var notes = undefined;
 $(function () {
-
-
-
+	$(document).ready(function () {
+		$('#get_all_notes').click();
+	});
+	
 
 	/**
      * This function binds an event to the add button.
@@ -36,26 +37,7 @@ $(function () {
 	});
 
 
-	/**
-     * This function deletes an existing note
-	 * Have to use weird syntax due to these object being inserted from AJAX requests
-     */
-	$(document).on('click','.note_delete',function () {
 
-		$.ajax({
-			url: '/notes/'.concat($(this).parent().attr('id')),
-			type: 'delete',
-			contentType: 'application/json',
-			success: function () {
-	
-			},
-			//We can use the alert box to show if there's an error in the server-side
-			error: function (xhr) {
-				var errorMessage = xhr.status + ': ' + xhr.statusText;
-				alert('Error - ' + errorMessage);
-			}
-		});
-	});
 });
 
 
