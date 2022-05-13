@@ -23,3 +23,8 @@ function isEditing(){
 	}
 	return false;
 }
+
+function doneEditing(){
+	$('#add_note_button').removeClass('editing');
+	$('#add_note_button').html('Add note');
+}
