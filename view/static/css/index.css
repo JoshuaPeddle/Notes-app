@@ -1,5 +1,5 @@
 * {
-    padding: 3px;
+    padding: 1px;
     margin: 5px;
 }
 
@@ -60,14 +60,12 @@
 #note_container {
     height: 100%;
     padding: 10px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-style: inset;
     border-radius: 5px;
-
 }
 
 #note_title {
@@ -125,12 +123,13 @@
  */
 
  #check{
+    height: 40px;
+    width: 40px;
     position: absolute;
     pointer-events: none;
-    content: '\2713';
     color: green;
     opacity: 0;
-    font-size: xx-large;
+    font-size: 300%;
     padding: 0%;
     left: -0.5em;
     top: -0.5em;
