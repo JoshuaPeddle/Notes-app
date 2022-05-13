@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 
 
 $(function () {
@@ -48,29 +49,3 @@ $(function () {
 });
 
 
-/**
- * Show sucess icon for 'showFor' ms
-*/
-async function showSuccessCheck(showFor){
-	$('#check').html('&#10003;');
-	$('#check').fadeTo('fast',1);
-	await new Promise(e => {return setTimeout(e, showFor);});	
-	$('#check').fadeOut('fast',0);
-}
-
-/**
- * Wait 'wait' ms, then fadeOut in 'fadeTime
-*/
-function showLoader(fadeTime){
-	$('#spinner').fadeTo(fadeTime,1);
-	
-}
-
-/**
- * Wait 'wait' ms, then fadeOut in 'fadeTime
-*/
-async function hideLoader(fadeTime,wait, cb){
-	await new Promise(e => {return setTimeout(e, wait);});	
-	$('#spinner').fadeOut(fadeTime,0);
-	cb();
-}

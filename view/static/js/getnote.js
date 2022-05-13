@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 
 
 $(function () {
@@ -8,6 +9,7 @@ $(function () {
      * and send it to the server-side.
      */
 	$('#get_all_notes').click(function (event) {
+		showLoader(1);
 		event.preventDefault();
 		$.ajax({
 			url: '/notes',
@@ -18,6 +20,7 @@ $(function () {
 					return;
 				}
 				addNotesTo(response);
+				hideLoader('fast',100);
 			},
 			//We can use the alert box to show if there's an error in the server-side
 			error: function (xhr) {
