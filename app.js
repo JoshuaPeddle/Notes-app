@@ -1,7 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var passport = require('passport');
-const helmet = require('helmet');
+//const helmet = require('helmet');
 var path = require('path');
 const mongo = require('./utils/db.js');
 const { homepageLimiter, signupLimiter, limiter, loginLimiter } = require('./utils/ratelimit.js');
@@ -15,7 +15,7 @@ var cache = require('./utils/cache.js');
 
 /* declare global app */
 var app = express();
-
+/*
 app.use(helmet({
 	originAgentCluster: false,
 	crossOriginOpenerPolicy: false,
@@ -32,7 +32,7 @@ app.use(helmet({
 	hsts: false,
 	expectCt: false,
 }));
-
+*/
 /* declare global app */
 app.use(session({
 	name: 'notesapp'+parseInt((Math.random() * 10000), 10), // Just need to have diffrent names on instances running onn the same machine 1/10000 are good odds
@@ -46,12 +46,11 @@ app.use(session({
 	})
 }));
 
-
 app.use(passport.authenticate('session'));
 
 app.use(cache);
 
-app.use(express.static(path.join(__dirname, '/view/static')));
+app.use(express.static(path.join(__dirname, '/view/static'), {dotfiles:'allow'}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
