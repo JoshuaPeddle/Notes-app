@@ -10,7 +10,6 @@ if (process.argv.slice(2).findIndex((e) => {return e === 'dev';}) !== -1) {
 	process.env.SESSION_SECRET = 'keyboard-cat';
 }
 
-
 /**
  * Module dependencies.
  */
@@ -18,6 +17,7 @@ if (process.argv.slice(2).findIndex((e) => {return e === 'dev';}) !== -1) {
 var app = require('../app');
 
 var http = require('http');
+const fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -46,6 +46,20 @@ async function createServer() {
 
 
 createServer();
+
+if (process.env.HTTPS){
+	var https = require('https');
+	https.createServer(
+		{
+			key: fs.readFileSync(process.env.KEY),
+			cert: fs.readFileSync(process.env.CERT)
+		},
+		app
+	).listen(process.env.HTTPSPORT || 4000,()=>{console.log('HTTPS up');});
+
+}
+
+
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -93,8 +107,6 @@ function onError(error) {
 		throw error;
 	}
 }
-
-
 
 
 process.on('SIGINT', () => {
