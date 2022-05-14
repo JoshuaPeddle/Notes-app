@@ -60,6 +60,7 @@ textarea, input{
 #title_container #title_string {
     justify-self: center;
     align-self: flex-end;
+    color: hsla(199, 27%, 18%, 1);
 }
 
 #title_container form button {
