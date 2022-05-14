@@ -1,6 +1,40 @@
+
+/*
+CSS HSL 
+--rich-black-fogra-39: hsla(30, 11%, 4%, 1);
+--gunmetal: hsla(199, 27%, 18%, 1);
+--almond: hsla(31, 33%, 88%, 1);
+--khaki-web: hsla(32, 33%, 67%, 1);
+--umber: hsla(33, 20%, 31%, 1);
+*/
+
 * {
     padding: 1px;
     margin: 5px;
+}
+html{
+    background: hsla(32, 33%, 67%, 1);
+}
+
+button{
+    font-size: 14px;
+    background:linear-gradient(to bottom, hsla(31, 33%, 88%, 1) 5%, hsla(32, 33%, 67%, 1) 100%);
+    box-shadow: 0px 10px 14px -7px hsla(33, 20%, 31%, 0.4);
+    border-width: 0;
+    border-radius:8px;
+    padding: min(10px,1vh) min(30px, 2vw);
+    text-shadow:0px 1px 0px #3d768a;
+    cursor:pointer;
+}
+
+textarea, input{
+  font-size: 16px;
+  font-size: max(16px, 1em);
+  font-family: inherit;
+  padding: 0.25em 0.5em;
+  background-color: hsla(31, 33%, 88%, 1);
+  border: 0px solid var(--input-border);
+  border-radius: 4px;
 }
 
 
@@ -19,39 +53,33 @@
 
 }
 
-#get_all_notes{
+#get_all_notes {
     display: none;
 }
 
 #title_container #title_string {
     justify-self: center;
     align-self: flex-end;
-
-
 }
 
 #title_container form button {
-
     justify-self: flex-end;
-
 }
 
 
 #title_input {
     overflow: visible;
+    font-size: x-large;
 }
 
 #text_input {
     width: 90%;
     display: block;
-    overflow: hidden;
+
     resize: both;
     line-height: 20px;
 }
 
-#add_note_button {
-    font-size: 15px;
-}
 
 #all_notes {
     width: 90%;
@@ -75,15 +103,37 @@
 .note_title {
     border-radius: 5px;
     font-size: 10px;
-    border-style: inset;
+    font-size: 16px;
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    background-color: hsla(31, 33%, 88%, 1);
+    border: 2px solid var(--input-border);
+    border-radius: 4px;
 }
 
 .note_body {
     border-radius: 5px;
     font-size: 10px;
-    border-style: inset;
+    font-size: 16px;
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    background-color: hsla(31, 33%, 88%, 1);
+    border: 2px solid var(--input-border);
+    border-radius: 4px;
 }
 
+.note_btn{
+    font-size: 12px;
+    box-shadow: 0px 5px 7px -4px hsla(33, 20%, 31%, 0.4);
+}
+
+
+#cancel_editing_button{
+    display: none;
+
+}
 
 /**
  * ----------------------------------------
@@ -92,7 +142,7 @@
  */
 
 
-#spinner{
+#spinner {
     position: absolute;
     pointer-events: none;
     opacity: 0;
@@ -126,7 +176,7 @@
  * ----------------------------------------
  */
 
- #check{
+#check {
     height: 40px;
     width: 40px;
     position: absolute;
@@ -137,10 +187,10 @@
     padding: 0%;
     left: -0.5em;
     top: -0.5em;
- }
+}
 
- #messages{
+#messages {
     position: absolute;
     left: 50%;
-    top: 40%;
- }
+    top: 20%;
+}
