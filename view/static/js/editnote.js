@@ -37,4 +37,5 @@ function isEditing(){
 function doneEditing(){
 	$('#add_note_button').removeClass('editing');
 	$('#add_note_button').html('Add note');
+	$('#cancel_editing_button').css('display','none');
 }
