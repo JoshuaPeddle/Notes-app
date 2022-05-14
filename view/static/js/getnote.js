@@ -68,8 +68,8 @@ function constructNoteDiv(title, body, id){
 	let $div = $('<div>').attr({'id':id, 'class':'note_div'});
 	let $title = $('<label>').text('Title: '+title.toString()).attr('class','note_title');
 	let $body = $('<label>').text('Body: '+body.toString()).attr('class','note_body');
-	let $editBtn = $('<button>').text('Edit').attr('class','note_edit');
-	let $deleteBtn = $('<button>').text('Delete').addClass('note_delete');
+	let $editBtn = $('<button>').text('Edit').addClass('note_edit note_btn');
+	let $deleteBtn = $('<button>').text('Delete').addClass('note_delete note_btn');
 	$title.appendTo($div);
 	$body.appendTo($div);
 	$editBtn.appendTo($div);

@@ -13,8 +13,18 @@ $(document).on('click','.note_edit',function () {
 
 	$('#add_note_button').addClass('editing');
 	$('#add_note_button').attr('value',noteId);
-	$('#add_note_button').html('Submit edit');
+	$('#add_note_button').html('Submit Edit');
+	$('#cancel_editing_button').css('display','inline');
+});
 
+
+$(document).on('click','#cancel_editing_button',function () {
+	$('#cancel_editing_button').css('display','none');
+	$('#add_note_button').removeClass('editing');
+	$('#add_note_button').attr('value','');
+	$('#add_note_button').html('Add Note');
+	$('#title_input').val('');
+	$('#text_input').val('');
 });
 
 function isEditing(){

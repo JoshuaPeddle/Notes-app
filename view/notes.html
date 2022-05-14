@@ -22,20 +22,22 @@
     <div id="input_container">
 
         <div id="title_container">
-            <h1 id="title_string">Notes</h1>
+            <h1 id="title_string">notesapp.cloud</h1>
             <form action="/logout" method="post">
-                <button type="submit">Logout</button>
+                <button type="submit" class="button">Logout</button>
             </form>
         </div>
 
-        <label for="title_input"> Title</label>
+
         <input id="title_input" type="text" value="" placeholder="Title">
 
-        <label for="text_input"> Note</label>
+
         <textarea id="text_input" cols="10" rows="10" placeholder="Body"></textarea>
 
-        <button id="add_note_button" type="submit">Add note</button>
-
+        <div id="editor_buttons">
+            <button id="add_note_button" type="submit">Add Note</button>
+            <button id="cancel_editing_button" type="submit">Cancel Edit</button>
+        </div>
         <div id="messages">
             <label id="check">&#10003;</label>
             <div id="spinner"></div>
