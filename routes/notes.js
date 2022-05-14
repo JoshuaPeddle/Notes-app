@@ -66,14 +66,17 @@ router.delete('/notes/', async function (req, res) {
 */
 router.get('/notes', async function (req, res) {
 	res.set('Cache-control', 'no-cache');
-
+	
 	if (req.user === undefined){
 		return res.send({ 'was_successful': false });
 	}
+	
 	let notes = await getAllNotes(req.user.id);
+
 	if (notes.length <1){
 		return res.send('No notes found');
 	}
+	
 	let cleaned_notes = [];
 	notes.forEach(element => {
 		let new_note = {title : element.title,

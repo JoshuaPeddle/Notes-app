@@ -22,11 +22,14 @@ $(function () {
 			contentType: 'application/json',
 			success: function (response) {
 				if (response === 'No notes found'){
+					$('#all_notes').empty();
+					hideLoader('fast',100);
 					return;
 				}
+				hideLoader('fast',100);
 				addNotesTo(response);
 				notes = response;
-				hideLoader('fast',100);
+				
 			},
 			//We can use the alert box to show if there's an error in the server-side
 			error: function (xhr) {
