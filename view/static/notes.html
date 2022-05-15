@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../css/index.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script async src="js/loader.js"></script>
-    <script async src="js/sendnote.js"></script>
-
-    <script async src="js/editnote.js"></script>
-    <script async src="js/deletenote.js"></script>
-    <script async src="js/getnote.js"></script>
+    <script async src="../js/loggedin.js"></script>
+    <script async src="../js/loader.js"></script>
+    <script async src="../js/sendnote.js"></script>
+    <script async src="../js/editnote.js"></script>
+    <script async src="../js/deletenote.js"></script>
+    <script async src="../js/getnote.js"></script>
     <meta name="description" content="Note entry page for notesapp.cloud.">
     <title>Notes</title>
 </head>
@@ -28,9 +28,7 @@
             </form>
         </div>
 
-
         <input id="title_input" type="text" value="" placeholder="Title">
-
 
         <textarea id="text_input" cols="10" rows="10" placeholder="Body"></textarea>
 
@@ -38,6 +36,7 @@
             <button id="add_note_button" type="submit">Add Note</button>
             <button id="cancel_editing_button" type="submit">Cancel Edit</button>
         </div>
+
         <div id="messages">
             <label id="check">&#10003;</label>
             <div id="spinner"></div>
