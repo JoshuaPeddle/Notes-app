@@ -19,8 +19,9 @@ $(function () {
 		$.ajax({
 			url: '/notes',
 			type: 'get',
-			contentType: 'application/json',
 			success: function (response) {
+				if(!isLoggedIn(response)){return;}
+				
 				if (response === 'No notes found'){
 					$('#all_notes').empty();
 					hideLoader('fast',100);
@@ -38,7 +39,6 @@ $(function () {
 			}
 		});
 	});
-
 
 
 });
