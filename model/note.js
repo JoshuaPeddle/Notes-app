@@ -58,15 +58,16 @@ class AuthoredNote extends Note {
      */
 async function updateNote(noteid, notetitle, notebody) {
 	let collection = await _get_notes_collection();
-
-	try {
-			
-		collection.updateOne({'_id':ObjectId(noteid)}, {$set:{title:notetitle, body:notebody}});
-			
+	let did_update;
+	try {	
+		did_update = await collection.updateOne({'_id':ObjectId(noteid)}, {$set:{title:notetitle, body:notebody}});	
 	} catch (e) {
 		return false;
 	}
-	return true;
+	if (did_update.matchedCount >=1 ){
+		return true;
+	}
+	return false;
 }
 /**
      * This method async inserts a note into the Notes collection.
@@ -77,7 +78,7 @@ async function getAllNotes(author_id) {
 	let collection = await _get_notes_collection();
 	let notes = null;
 	try {
-		notes = collection.find({'author_id' :author_id }).toArray();
+		notes = await collection.find({'author_id' :author_id }).toArray();
 	} catch (e) {
 		return false;
 	}
@@ -92,13 +93,17 @@ async function getAllNotes(author_id) {
      */
 async function deleteNote(noteid) {
 	let collection = await _get_notes_collection();
-	let notes = null;
+	let delete_status;
 	try {
-		notes = collection.deleteOne({'_id':ObjectId(noteid)});
+		delete_status = await collection.deleteOne({'_id':ObjectId(noteid)});
 	} catch (e) {
 		return false;
 	}
-	return notes;
+	if (delete_status.deletedCount >=1 ){
+		return true;
+	}
+	return false;
+	
 }
 
 
