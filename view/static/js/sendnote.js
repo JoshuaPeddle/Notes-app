@@ -31,7 +31,9 @@ $(function () {
 				type: 'PUT',
 				contentType: 'application/json',
 				data: JSON.stringify(note),
-				success: async function () {
+				success: async function (response) {
+					if(!isLoggedIn(response)){return;}
+
 					hideLoader('fast',1000, ()=>{
 						showSuccessCheck(1000);
 					});
@@ -55,7 +57,8 @@ $(function () {
 				type: 'POST',
 				contentType: 'application/json',
 				data: JSON.stringify(note),
-				success: async function () {
+				success: async function (response) {
+					if(!isLoggedIn(response)){return;}
 					hideLoader('fast',1000, ()=>{
 						showSuccessCheck(1000);
 					});
