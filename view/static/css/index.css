@@ -136,6 +136,16 @@ textarea, input{
 
 }
 
+.password-popup{
+
+    position: absolute;
+    background-color: hsla(33, 20%, 31%, 1);
+    padding: 0.25em 0.25em;
+    border-radius:8px;
+}
+
+
+
 /**
  * ----------------------------------------
  * animation spin
