@@ -42,7 +42,7 @@ async function createServer() {
 if (process.env.HTTPS && !process.env.DEV){
 	var express = require('express');
 	let httpRedirector = express();
-	httpRedirector.all('/',(req,res)=> {return res.redirect(300, 'https://notesapp.cloud');});
+	httpRedirector.get('/',(req,res)=> {return res.redirect(302, 'https://notesapp.cloud');});
 	server = http.createServer(httpRedirector);
 	server.listen(port, () => {return console.log('httpRedirector listening');});
 	var https = require('https');
