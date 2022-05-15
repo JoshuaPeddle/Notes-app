@@ -1,6 +1,6 @@
 # Notes-app - A containerized web app for note taking
 
-Available at [https://notesapp.cloud/](https://notesapp.cloud)
+Available at [notesapp.cloud](https://notesapp.cloud) (Served over HTTPS)
 
 <h2>Technical Overview</h2>
 
