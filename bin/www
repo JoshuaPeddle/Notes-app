@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('dotenv').config({ path: './.env' });
-/** This checks for 'dev' in argv. ex: "npm run dev"
+/** Checkfor 'dev' in argv. ex: "node ./bin/www dev"
  *  If it finds it, configure dev environment
  */
 if (process.argv.slice(2).findIndex((e) => {return e === 'dev';}) !== -1) {
@@ -23,48 +23,60 @@ const fs = require('fs');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const httpPort = normalizePort(process.env.PORT || '3000');
+const httpsPort =normalizePort(process.env.HTTPSPORT || '4005');
+
 var server;
 var httpsserver;
 
-async function createServer() {
-	try {
-		//make sure database is working before starting
-		server.listen(port);
-		server.on('error', onError);
-	}
-	catch (err) {
-		throw new Error('Could not start server!');
-	}
-}
 
-
+/** HTTPS WITH HTTP REDIRECTOR */
 if (process.env.HTTPS && !process.env.DEV){
+	var https = require('https');
 	var express = require('express');
 	let httpRedirector = express();
 	httpRedirector.get('/',(req,res)=> {return res.redirect(302, 'https://notesapp.cloud');});
 	server = http.createServer(httpRedirector);
-	server.listen(port, () => {return console.log('httpRedirector listening');});
-	var https = require('https');
+
+	try {
+		//make sure database is working before starting
+		server.listen(httpPort, () => {return console.log('httpRedirector listening');});
+		server.on('error', onHttpError);
+	}
+	catch (err) {
+		throw new Error('Could not start http redirector!');
+	}
+	
 	httpsserver= https.createServer(
 		{
 			key: fs.readFileSync(process.env.KEY),
 			cert: fs.readFileSync(process.env.CERT)
 		},
 		app
-	).listen(normalizePort(process.env.HTTPSPORT || '4000'),()=>{console.log('HTTPS up');});
+	);
 
-}else{
+	try {
+		//make sure database is working before starting
+		httpsserver.listen(httpsPort,()=>{console.log('HTTPS up');});
+		httpsserver.on('error', onHttpsError);
+	}
+	catch (err) {
+		throw new Error('Could not start HTTPS server!');
+	}
 
-	app.set('port', port);
 
-	/**
- * Create HTTP server.
- */
+}else{ /** HTTP ONLY */
 
+	app.set('port', httpPort);
 	server = http.createServer(app);
-
-	createServer();
+	try {
+		//make sure database is working before starting
+		server.listen(httpPort);
+		server.on('error', onHttpError);
+	}
+	catch (err) {
+		throw new Error('Could not start http server!');
+	}
 }
 
 
@@ -92,14 +104,43 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onHttpError(error) {
 	if (error.syscall !== 'listen') {
 		throw error;
 	}
 
-	var bind = typeof port === 'string'
-		? 'Pipe ' + port
-		: 'Port ' + port;
+	var bind = typeof httpPort === 'string'
+		? 'Pipe ' + httpPort
+		: 'Port ' + httpPort;
+
+	// handle specific listen errors with friendly messages
+	switch (error.code) {
+	case 'EACCES':
+		console.error(bind + ' requires elevated privileges');
+		process.exit(1);
+		break;
+	case 'EADDRINUSE':
+		console.error(bind + ' is already in use');
+		process.exit(1);
+		break;
+	default:
+		throw error;
+	}
+}
+
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onHttpsError(error) {
+	if (error.syscall !== 'listen') {
+		throw error;
+	}
+
+	var bind = typeof httpsPort === 'string'
+		? 'Pipe ' + httpsPort
+		: 'Port ' + httpsPort;
 
 	// handle specific listen errors with friendly messages
 	switch (error.code) {

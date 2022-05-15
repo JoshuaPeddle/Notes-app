@@ -11,7 +11,6 @@ router.get('/css/*', (req, res, next)=>{
 // Cache static JS for a year
 router.get('/js/*', (req, res, next)=>{
 	res.set('Cache-control', 'public, max-age=31536000, immutable');
-
 	next();
 });
 
