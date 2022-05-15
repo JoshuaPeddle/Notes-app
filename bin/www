@@ -24,14 +24,8 @@ const fs = require('fs');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
+var server;
+var httpsserver;
 
 async function createServer() {
 	try {
@@ -45,23 +39,31 @@ async function createServer() {
 }
 
 
-
 if (process.env.HTTPS && !process.env.DEV){
 	var express = require('express');
 	let httpRedirector = express();
 	httpRedirector.all('/',(req,res)=> {return res.redirect(300, 'https://notesapp.cloud');});
 	server = http.createServer(httpRedirector);
-	server.listen(normalizePort(process.env.PORT || '3000'), () => {return console.log('httpRedirector listening');});
+	server.listen(port, () => {return console.log('httpRedirector listening');});
 	var https = require('https');
-	https.createServer(
+	httpsserver= https.createServer(
 		{
 			key: fs.readFileSync(process.env.KEY),
 			cert: fs.readFileSync(process.env.CERT)
 		},
 		app
-	).listen(normalizePort(process.env.PORT || '4000'),()=>{console.log('HTTPS up');});
+	).listen(normalizePort(process.env.HTTPSPORT || '4000'),()=>{console.log('HTTPS up');});
 
 }else{
+
+	app.set('port', port);
+
+	/**
+ * Create HTTP server.
+ */
+
+	server = http.createServer(app);
+
 	createServer();
 }
 
@@ -117,6 +119,12 @@ function onError(error) {
 
 process.on('SIGINT', () => {
 	server.close(() => {
-		console.log('Process terminated');
+		console.log('http Process terminated');
 	});
+
+	if(process.env.HTTPS && !process.env.DEV){
+		httpsserver.close(() => {
+			console.log('https Process terminated');
+		});
+	}
 });
