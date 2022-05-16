@@ -20,34 +20,36 @@
 
 <body>
 
-    <div id="input_container">
+    <div id="title_container">
+        <h1 id="title_string">notesapp.cloud</h1>
+        <form action="/logout" method="post">
+            <button type="submit" class="button">Logout</button>
+        </form>
+    </div>
 
-        <div id="title_container">
-            <h1 id="title_string">notesapp.cloud</h1>
-            <form action="/logout" method="post">
-                <button type="submit" class="button">Logout</button>
-            </form>
-        </div>
+    <div id="container">
 
-        <input id="title_input" type="text" value="" placeholder="Title">
+        <section class="user_input">
+            <input id="title_input" type="text" value="" placeholder="Title">
+            <textarea id="text_input" cols="10" rows="10" placeholder="Body"></textarea>
 
-        <textarea id="text_input" cols="10" rows="10" placeholder="Body"></textarea>
+            <div id="editor_buttons">
+                <button id="add_note_button" type="submit">Add Note</button>
+                <button id="cancel_editing_button" type="submit">Cancel Edit</button>
+            </div>
+        </section>
 
-        <div id="editor_buttons">
-            <button id="add_note_button" type="submit">Add Note</button>
-            <button id="cancel_editing_button" type="submit">Cancel Edit</button>
-        </div>
+        <div id="all_notes" class="user_input"></div>
 
-        <div id="messages">
-            <label id="check">&#10003;</label>
-            <div id="spinner"></div>
-        </div>
-
-        <button id="get_all_notes" type="submit" class="slide-right">Get all Notes</button>
-
-        <div id="all_notes"></div>
 
     </div>
+
+    <div id="messages">
+        <label id="check">&#10003;</label>
+        <div id="spinner"></div>
+    </div>
+
+    <button id="get_all_notes" type="submit" class="slide-right">Get all Notes</button>
 
 </body>
 
