@@ -4,16 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/log_in.css">
     <meta name="description" content="Login page for notesapp.cloud.">
     <title>Login</title>
 </head>
 
 <body>
-    <label id="login_title" class="subtitle">Login</label>
+    <label id="login_title" class="title">Welcome to notesapp.cloud</label>
     <div id="login_container" class="container">
+        <label  class="subtitle">Log in</label>     
         <form action="/login/password" method="post">
+              
+
             <section>
                 <label for="username">Username</label>
                 <input id="username" name="username" type="text" autocomplete="username" required autofocus>
@@ -25,12 +28,12 @@
             <button type="submit">Log In</button>
         </form>
     </div>
-    <br>
-    <br>
-    <br>
-    <label id="signup_title" class="subtitle">Signup</label>
+
     <div id="signup_container" class="container">
+        <label class="subtitle">Sign up</label>
         <form action="/signup" method="post">
+            
+ 
             <section>
                 <label for="new-username">Username</label>
                 <input id="new-username" name="username" type="text" autocomplete="username" required>

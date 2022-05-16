@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/notes.css">
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script defer src="../js/loggedin.js"></script>
@@ -29,7 +30,7 @@
 
     <div id="container">
 
-        <section class="user_input">
+        <section id="note_entry" class="user_input">
             <input id="title_input" type="text" value="" placeholder="Title">
             <textarea id="text_input" cols="10" rows="10" placeholder="Body"></textarea>
 
@@ -40,7 +41,6 @@
         </section>
 
         <div id="all_notes" class="user_input"></div>
-
 
     </div>
 
