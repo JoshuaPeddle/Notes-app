@@ -6,7 +6,7 @@
 	 * Have to use weird syntax due to these object being inserted from AJAX requests
      */
 $(document).on('click','.note_edit',function () {
-	const noteId = $(this).parent().attr('id');
+	const noteId = $(this).parent().parent().attr('id');
 	let note = notes.find(e=>{return e.id === noteId;});
 	$('#title_input').val(note.title);
 	$('#text_input').val(note.body);

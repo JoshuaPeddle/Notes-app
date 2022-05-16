@@ -8,7 +8,7 @@ $(document).on('click','.note_delete',function () {
 		url: '/notes/',
 		type: 'delete',
 		contentType: 'application/json',
-		data: JSON.stringify({noteid:$(this).parent().attr('id')}),
+		data: JSON.stringify({noteid:$(this).parent().parent().attr('id')}),
 		success: function (response) {
 			if(!isLoggedIn(response)){return;}
 			$('#get_all_notes').click();
