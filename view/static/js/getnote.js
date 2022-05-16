@@ -21,13 +21,13 @@ $(function () {
 			type: 'get',
 			success: function (response) {
 				if(!isLoggedIn(response)){return;}
-				
 				if (response === 'No notes found'){
 					$('#all_notes').empty();
 					hideLoader('fast',100);
 					return;
 				}
 				hideLoader('fast',100);
+				response.reverse();
 				addNotesTo(response);
 				notes = response;
 				
@@ -66,13 +66,17 @@ function constructNoteDiv(title, body, id){
 		body = body.slice(0,40) +'...';
 	}
 	let $div = $('<div>').attr({'id':id, 'class':'note_div'});
-	let $title = $('<label>').text('Title: '+title.toString()).attr('class','note_title');
-	let $body = $('<label>').text('Body: '+body.toString()).attr('class','note_body');
+	let $note_info = $('<div>').attr({'class':'sub_note_div title_body'});
+	let $title = $('<label>').text(title.toString()).attr('class','note_title');
+	let $body = $('<label>').text(body.toString()).attr('class','note_body');
+	let $note_buttons = $('<div>').attr({'class':'sub_note_div edit_delete'});
 	let $editBtn = $('<button>').text('Edit').addClass('note_edit note_btn');
 	let $deleteBtn = $('<button>').text('Delete').addClass('note_delete note_btn');
-	$title.appendTo($div);
-	$body.appendTo($div);
-	$editBtn.appendTo($div);
-	$deleteBtn.appendTo($div);
+	$title.appendTo($note_info);
+	$body.appendTo($note_info);
+	$editBtn.appendTo($note_buttons);
+	$deleteBtn.appendTo($note_buttons);
+	$note_info.appendTo($div);
+	$note_buttons.appendTo($div);
 	return $div;
 }
