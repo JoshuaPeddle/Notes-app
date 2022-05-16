@@ -12,6 +12,7 @@ $(function () {
 			success: function (response) {
 				if (response.includes('<meta name="description" content="Note entry page for notesapp.cloud.">')){
 					$('.password-popup').remove();
+					$('#get_all_notes').click();
 				}
 				
 			},
@@ -22,7 +23,6 @@ $(function () {
 			}
 		});
 	});
-
 
 });
 
