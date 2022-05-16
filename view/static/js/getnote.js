@@ -60,7 +60,7 @@ function addNotesTo(response){
 
 function constructNoteDiv(title, body, id){
 	if (title.length >10){
-		title = body.slice(0,10) +'...';
+		title = title.slice(0,10) +'...';
 	}
 	if (body.length >20){
 		body = body.slice(0,40) +'...';
