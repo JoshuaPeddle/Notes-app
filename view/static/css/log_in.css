@@ -1,0 +1,44 @@
+
+body {
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 0px;
+}
+
+.container {
+    width: min(450px,90%);
+    margin-inline: auto;
+}
+
+.container>form{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: inset;
+    background: hsla(30, 10%, 4%, 0.075);
+    border-style: inset;
+    border-color: hsla(30, 11%, 4%, 0.1);
+    border-radius: 10px;
+}
+.container>form >section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.title {
+    font-size: 200%;
+    text-align: center;
+    
+}
+
+.subtitle {
+    font-size: 150%;
+    text-align: center;
+}
+
