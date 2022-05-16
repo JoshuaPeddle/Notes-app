@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 
-// Cache static CSS for a year
+// Cache static CSS for a day
 router.get('/css/*', (req, res, next)=>{
-	res.set('Cache-control', 'public, max-age=31536000, immutable');
+	res.set('Cache-control', 'public, max-age=86400');
 	next();
 });
 
-// Cache static JS for a year
+// Cache static JS for a day
 router.get('/js/*', (req, res, next)=>{
-	res.set('Cache-control', 'public, max-age=31536000, immutable');
+	res.set('Cache-control', 'public, max-age=86400');
 	next();
 });
 
