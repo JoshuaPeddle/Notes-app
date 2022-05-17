@@ -2,7 +2,8 @@ name: selenium
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *'  # every day 3:00 UTC. 12:30 AM Newfoundland Standard TIme
+    - cron: '0 3 * * *'  # every day 3:00 UTC. 12:30 AM Newfoundland Standard Time
+    - cron: '0 15 * * *'  # every day 15:00 UTC. 12:30 PM Newfoundland Standard Time
 jobs:
   scrape:
     runs-on: ubuntu-latest
