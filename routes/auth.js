@@ -20,16 +20,15 @@ async function _get_users_collection() {
  * User is fetched from the DB.
  * Implementation purposely not described here.
  */
+let iterations = parseInt(process.env.ITERATIONS);
+let keylen = parseInt(process.env.KEYLEN);
+let digest = process.env.DIGEST;
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
 	let collection = await _get_users_collection();
 	let user = await collection.findOne({ 'username': username });
-	
 	if (user === null) {
 		return cb(null);
 	}
-	let iterations = parseInt(process.env.ITERATIONS);
-	let keylen = parseInt(process.env.KEYLEN);
-	let digest = process.env.DIGEST;
 	crypto.pbkdf2(password, Buffer.from(user.salt, 'hex'), iterations, keylen, digest, function (err, hashedPassword) {
 		if (err) { return cb(err); }
 		if (!crypto.timingSafeEqual(Buffer.from(user.hashed_password, 'hex'), hashedPassword)) {
@@ -88,9 +87,6 @@ router.post('/logout', function (req, res) {
 router.post('/signup', function (req, res, next) {
 	// Username is free. Encrypt the password and add the user to the database
 	var salt = crypto.randomBytes(16);
-	let iterations = parseInt(process.env.ITERATIONS);
-	let keylen = parseInt(process.env.KEYLEN);
-	let digest = process.env.DIGEST;
 	crypto.pbkdf2(req.body.password, salt, iterations, keylen, digest, async function (err, hashedPassword) {
 		if (err) { return next(err); }
 		// Get the user collection from the database
