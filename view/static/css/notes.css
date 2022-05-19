@@ -60,7 +60,7 @@ body{
 
 #note_entry{
     border-style: inset;
-    background: hsla(30, 10%, 4%, 0.075);
+    background: hsla(30, 10%, 4%, 0.01);
     border-style: inset;
     border-color: hsla(30, 11%, 4%, 0.1);
     border-radius: 10px;

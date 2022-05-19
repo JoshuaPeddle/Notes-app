@@ -1,16 +1,18 @@
 /*CSS HSL
---rich-black-fogra-39: hsla(30, 11%, 4%, 1);
---gunmetal: hsla(199, 27%, 18%, 1);
---almond: hsla(31, 33%, 88%, 1);
---khaki-web: hsla(32, 33%, 67%, 1);
---umber: hsla(33, 20%, 31%, 1);
+--dark-salmon: hsla(18, 80%, 68%, 1);
+--dark-lava: hsla(30, 26%, 22%, 1);
+--nyanza: hsla(124, 64%, 91%, 1);
+--steel-teal: hsla(190, 24%, 44%, 1);
+--camel: hsla(31, 31%, 54%, 1);
 */
 * {
 
     margin: 5px 5px 5px 5px;
 
 }
-
+button{
+    font-weight: bold;
+    }
 body {
 
     margin: 0px;
@@ -18,27 +20,27 @@ body {
 }
 
 html {
-    background: hsla(32, 33%, 67%, 1);
+    background: hsla(30, 26%, 22%, 0.80);
 }
 
 button {
     font-size: 14px;
-    background: linear-gradient(to bottom, hsla(31, 33%, 88%, 1) 5%, hsla(32, 33%, 67%, 1) 100%);
-    box-shadow: 0px 10px 14px -7px hsla(33, 20%, 31%, 0.4);
+    background: linear-gradient(to bottom, hsla(18, 80%, 68%, 0.65) 5%, rgb(207, 128, 94,.80) 100%);
+    box-shadow: 10px 10px 10px 10px hsla(18, 80%, 68%, 0);
     border-width: 0;
     border-radius: 8px;
     padding: min(10px, 1vh) min(30px, 2vw);
-    text-shadow: 0px 0.25px 0px #3d768a;
     cursor: pointer;
 }
 
 textarea,
 input {
+    color: black;
     font-size: 16px;
     font-size: max(16px, 1em);
     font-family: inherit;
     padding: 0.25em 0.5em;
-    background-color: hsla(31, 33%, 88%, 1);
+    background-color: hsla(31, 33%, 88%, 0.8);
     border: 0px solid var(--input-border);
     border-radius: 4px;
 }

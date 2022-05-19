@@ -1,3 +1,11 @@
+* {
+    color: hsla(198, 9%, 78%, 0.901);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button {
+    color: rgb(30, 30, 30);
+}
 
 body {
     height: 85vh;
@@ -9,22 +17,23 @@ body {
 }
 
 .container {
-    width: min(450px,90%);
+    width: min(450px, 90%);
     margin-inline: auto;
 }
 
-.container>form{
+.container>form {
 
     display: flex;
     flex-direction: column;
     align-items: center;
     border-style: inset;
-    background: hsla(30, 10%, 4%, 0.075);
+    background: hsla(30, 26%, 22%, 0.15);
     border-style: inset;
-    border-color: hsla(30, 11%, 4%, 0.1);
+    border-color: hsla(30, 11%, 4%, 0.3);
     border-radius: 10px;
 }
-.container>form >section{
+
+.container>form>section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,11 +43,10 @@ body {
 .title {
     font-size: 200%;
     text-align: center;
-    
+
 }
 
 .subtitle {
     font-size: 150%;
     text-align: center;
 }
-
